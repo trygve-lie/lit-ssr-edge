@@ -1,0 +1,99 @@
+{
+  "timestamp": "2026-02-23T10:38:41.008Z",
+  "implementation": "lit-ssr",
+  "nodeVersion": "v24.13.0",
+  "platform": "linux",
+  "arch": "x64",
+  "results": [
+    {
+      "name": "Simple text template",
+      "iterations": 5000,
+      "heapDiff": 1445480,
+      "rssDiff": 11284480,
+      "perOp": {
+        "heap": 289.096,
+        "rss": 2256.896
+      }
+    },
+    {
+      "name": "String interpolation",
+      "iterations": 5000,
+      "heapDiff": 55168,
+      "rssDiff": 512000,
+      "perOp": {
+        "heap": 11.0336,
+        "rss": 102.4
+      }
+    },
+    {
+      "name": "Nested elements",
+      "iterations": 3000,
+      "heapDiff": 97136,
+      "rssDiff": 40960,
+      "perOp": {
+        "heap": 32.37866666666667,
+        "rss": 13.653333333333334
+      }
+    },
+    {
+      "name": "List: 10 items",
+      "iterations": 1000,
+      "heapDiff": 74584,
+      "rssDiff": 487424,
+      "perOp": {
+        "heap": 74.584,
+        "rss": 487.424
+      }
+    },
+    {
+      "name": "List: 100 items",
+      "iterations": 200,
+      "heapDiff": 51768,
+      "rssDiff": 3923968,
+      "perOp": {
+        "heap": 258.84,
+        "rss": 19619.84
+      }
+    },
+    {
+      "name": "List: 1000 items",
+      "iterations": 50,
+      "heapDiff": 416976,
+      "rssDiff": 9371648,
+      "perOp": {
+        "heap": 8339.52,
+        "rss": 187432.96
+      }
+    },
+    {
+      "name": "Component: simple-greeting",
+      "iterations": 1000,
+      "heapDiff": 117864,
+      "rssDiff": 360448,
+      "perOp": {
+        "heap": 117.864,
+        "rss": 360.448
+      }
+    },
+    {
+      "name": "Component: with properties",
+      "iterations": 1000,
+      "heapDiff": 28784,
+      "rssDiff": 180224,
+      "perOp": {
+        "heap": 28.784,
+        "rss": 180.224
+      }
+    },
+    {
+      "name": "Component: nested",
+      "iterations": 500,
+      "heapDiff": 45808,
+      "rssDiff": 0,
+      "perOp": {
+        "heap": 91.616,
+        "rss": 0
+      }
+    }
+  ]
+}
