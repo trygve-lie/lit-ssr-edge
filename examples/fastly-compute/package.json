@@ -7,19 +7,19 @@
   "main": "src/index.js",
   "scripts": {
     "prebuild": "mkdir -p dist bin",
-    "build": "esbuild src/index.js --bundle --outfile=dist/bundle.js --format=esm --platform=browser --target=es2022 && js-compute-runtime dist/bundle.js bin/main.wasm",
+    "build": "esbuild src/index.js --bundle --outfile=dist/bundle.js --format=esm --platform=neutral --conditions=node --main-fields=module,main --target=es2022 && js-compute-runtime dist/bundle.js bin/main.wasm",
     "start": "fastly compute serve",
     "deploy": "npm run build && fastly compute publish"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=22.0.0"
   },
   "dependencies": {
-    "@fastly/js-compute": "^3.33.2",
-    "lit": "^3.0.0",
-    "lit-ssr-edge": "file:../.."
+    "@fastly/js-compute": "3.40.0",
+    "lit": "3.3.2",
+    "lit-ssr-edge": "*"
   },
   "devDependencies": {
-    "esbuild": "^0.21.0"
+    "esbuild": "0.27.3"
   }
 }

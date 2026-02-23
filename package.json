@@ -6,6 +6,12 @@
   "author": "",
   "type": "module",
   "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./server-template.js": "./src/server-template.js",
+    "./install-global-dom-shim.js": "./src/install-global-dom-shim.js",
+    "./directives/index.js": "./src/directives/index.js"
+  },
   "scripts": {
     "test": "npm run test:baseline && npm run test:lit-ssr-edge",
     "test:baseline": "TEST_IMPL=lit-ssr node --test test/integration/baseline/*.test.js",

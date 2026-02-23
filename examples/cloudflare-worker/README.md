@@ -50,6 +50,8 @@ import { render, RenderResultReadable } from 'lit-ssr-edge';
 import './components/my-app.js';
 ```
 
+**`--platform=neutral --conditions=node` in the build command** — `lit-html`'s package exports map lists the `browser` key before the `node` key. With `--platform=browser`, esbuild includes `browser` in its active conditions set, so the `browser` entry wins regardless of `--conditions=node`. That build contains `const l = document` at module level, which throws `ReferenceError: document is not defined` in the Workers runtime (which has no DOM). Using `--platform=neutral` removes `browser` from the conditions set entirely, letting `--conditions=node` take effect and resolving `lit-html` to its SSR-safe `node/lit-html.js` build. `--platform=neutral` also avoids injecting Node.js built-in shims that would not be available in the Workers runtime.
+
 **Component loading** — components are bundled at build time (esbuild/rollup),
 not resolved at runtime. Import your component files and they will be inlined
 into `dist/worker.js` by the bundler.
