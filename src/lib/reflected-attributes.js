@@ -1,0 +1,182 @@
+/**
+ * HTML element property-to-attribute reflection map.
+ *
+ * Used when rendering property bindings (.prop=value) to determine what
+ * attribute name to use in the serialized HTML output.
+ *
+ * Source: https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes
+ */
+
+// prettier-ignore
+const reflectedAttributesSource = [
+  ['accept', [/*'form',*/ 'input']],
+  [['accept-charset', 'acceptCharset'], ['form']],
+  [['accesskey', 'accessKey'], ['*']],
+  ['action', ['form']],
+  ['align', [/*'applet',*/ 'caption', 'col', 'colgroup', 'hr', 'iframe', 'img', 'table', 'tbody', 'td', 'tfoot', 'th', 'thead', 'tr']],
+  ['allow', ['iframe']],
+  ['alt', [/*'applet',*/ 'area', 'img', 'input']],
+  ['async', ['script']],
+  ['autocapitalize', ['*']],
+  ['autocomplete', ['form', 'input', 'select', 'textarea']],
+  ['autofocus', ['button', 'input', 'keygen', 'select', 'textarea']],
+  ['autoplay', ['audio', 'video']],
+  ['background', ['body', /*'table', 'td', 'th'*/]],
+  [['bgcolor', 'bgColor'], ['body', /*'col', 'colgroup',*/ 'marquee', 'table', /*'tbody', 'tfoot',*/ 'td', 'th', 'tr']],
+  ['border', ['img', 'object', 'table']],
+  ['buffered', [/*'audio', 'video'*/]],
+  ['capture', [/*'input'*/]],
+  ['challenge', [/*'keygen'*/]],
+  ['charset', [/*'meta',*/ 'script']],
+  ['checked', [/*'command',*/ 'input']],
+  ['cite', ['blockquote', 'del', 'ins', 'q']],
+  [['class', 'className'], ['*']],
+  ['code', [/*'applet'*/]],
+  ['codebase', [/*'applet'*/]],
+  ['color', [/*'basefont',*/ 'font', 'hr']],
+  ['cols', ['textarea']],
+  [['colspan', 'colSpan'], ['td', 'th']],
+  ['content', ['meta']],
+  [['contenteditable', 'contentEditable'], ['*']],
+  [['contextmenu'], [/*'*'*/]],
+  ['controls', ['audio', 'video']],
+  ['coords', ['area']],
+  [['crossorigin', 'crossOrigin'], ['audio', 'img', 'link', 'script', 'video']],
+  ['csp', ['iframe']],
+  ['data', ['object']],
+  [['datetime', 'dateTime'], ['del', 'ins', 'time']],
+  ['decoding', ['img']],
+  ['default', ['track']],
+  ['defer', ['script']],
+  ['dir', ['*']],
+  [['dirname', 'dirName'], ['input', 'textarea']],
+  ['disabled', [/*'command',*/ 'button', 'fieldset', 'input', /*'keygen',*/ 'optgroup', 'option', 'select', 'textarea']],
+  ['download', ['a', 'area']],
+  ['draggable', ['*']],
+  ['enctype', ['form']],
+  [['enterkeyhint', 'enterKeyHint'], ['textarea', 'contenteditable']],
+  ['for', [/*'label', 'output'*/]],
+  ['form', [/*'button', 'fieldset', 'input', 'keygen', 'label', 'meter', 'object', 'output', 'progress', 'select', 'textarea'*/]],
+  [['formaction', 'formAction'], ['input', 'button']],
+  [['formenctype', 'formEnctype'], ['button', 'input']],
+  [['formmethod', 'formMethod'], ['button', 'input']],
+  [['formnovalidate', 'formNoValidate'], ['button', 'input']],
+  [['formtarget', 'formTarget'], ['button', 'input']],
+  ['headers', ['td', 'th']],
+  ['height', ['canvas', 'embed', 'iframe', 'img', 'input', 'object', 'video']],
+  ['hidden', ['*']],
+  ['high', ['meter']],
+  ['href', ['a', 'area', 'base', 'link']],
+  ['hreflang', ['a', /*'area',*/ 'link']],
+  [['http-equiv', 'httpEquiv'], ['meta']],
+  ['icon', [/*'command'*/]],
+  ['id', ['*']],
+  ['importance', [/*'iframe', 'img', 'link', 'script'*/]],
+  ['integrity', ['link', 'script']],
+  ['intrinsicsize', [/*'img'*/]],
+  [['inputmode', 'inputMode'], ['textarea', 'contenteditable']],
+  [['ismap', 'isMap'], ['img']],
+  ['itemprop', [/*'*'*/]],
+  ['keytype', [/*'keygen'*/]],
+  ['kind', ['track']],
+  ['label', ['optgroup', 'option', 'track']],
+  ['lang', ['*']],
+  ['language', [/*'script'*/]],
+  ['loading', ['img', 'iframe']],
+  ['list', [/*'input'*/]],
+  ['loop', ['audio', /*'bgsound',*/ 'marquee', 'video']],
+  ['low', ['meter']],
+  ['manifest', [/*'html'*/]],
+  ['max', ['input', 'meter', 'progress']],
+  [['maxlength', 'maxLength'], ['input', 'textarea']],
+  [['minlength', 'minLength'], ['input', 'textarea']],
+  ['media', [/*'a', 'area',*/ 'link', 'source', 'style']],
+  ['method', ['form']],
+  ['min', ['input', 'meter']],
+  ['multiple', ['input', 'select']],
+  ['muted', ['audio', 'video']],
+  ['name', ['button', 'form', 'fieldset', 'iframe', 'input', /*'keygen',*/ 'object', 'output', 'select', 'textarea', 'map', 'meta', 'param']],
+  [['novalidate', 'noValidate'], ['form']],
+  ['open', ['details']],
+  ['optimum', ['meter']],
+  ['pattern', ['input']],
+  ['ping', ['a', 'area']],
+  ['placeholder', ['input', 'textarea']],
+  ['poster', ['video']],
+  ['preload', ['audio', 'video']],
+  ['radiogroup', [/*'command'*/]],
+  [['readonly', 'readOnly'], ['input', 'textarea']],
+  [['referrerpolicy', 'referrerPolicy'], ['a', 'area', 'iframe', 'img', 'link', 'script']],
+  ['rel', ['a', 'area', 'link']],
+  ['required', ['input', 'select', 'textarea']],
+  ['reversed', ['ol']],
+  ['rows', ['textarea']],
+  [['rowspan', 'rowSpan'], ['td', 'th']],
+  ['sandbox', ['iframe']],
+  ['scope', ['th']],
+  ['scoped', [/*'style'*/]],
+  ['selected', ['option']],
+  ['shape', ['a', 'area']],
+  ['size', ['input', 'select']],
+  ['sizes', ['link', 'img', 'source']],
+  ['slot', ['*']],
+  ['span', ['col', 'colgroup']],
+  ['spellcheck', ['*']],
+  ['src', ['audio', 'embed', 'iframe', 'img', 'input', 'script', 'source', 'track', 'video']],
+  ['srcdoc', ['iframe']],
+  ['srclang', ['track']],
+  ['srcset', ['img', 'source']],
+  ['start', ['ol']],
+  ['step', ['input']],
+  ['style', ['*']],
+  ['summary', ['table']],
+  [['tabindex', 'tabIndex'], ['*']],
+  ['target', ['a', 'area', 'base', 'form']],
+  ['title', ['*']],
+  ['translate', [/*'*'*/]],
+  ['type', ['button', 'input', /*'command',*/ 'embed', 'object', 'script', 'source', 'style', /*'menu'*/]],
+  [['usemap', 'useMap'], ['img', 'input', 'object']],
+  ['value', ['button', 'data', 'input', 'li', 'meter', 'option', 'progress', 'param']],
+  ['width', ['canvas', 'embed', 'iframe', 'img', 'input', 'object', 'video']],
+  ['wrap', ['textarea']],
+];
+
+/**
+ * Nested Map: element name (uppercase) → property name → attribute name.
+ */
+const reflectedAttributes = new Map();
+
+const addPropertyForElement = (elementName, attributeName, propertyName) => {
+  if (reflectedAttributes.has(elementName)) {
+    reflectedAttributes.get(elementName).set(propertyName, attributeName);
+  } else {
+    reflectedAttributes.set(elementName, new Map([[propertyName, attributeName]]));
+  }
+};
+
+for (const [attr, elements] of reflectedAttributesSource) {
+  for (let elementName of elements) {
+    elementName = elementName.toUpperCase();
+    if (Array.isArray(attr)) {
+      addPropertyForElement(elementName, attr[0], attr[1]);
+    } else {
+      addPropertyForElement(elementName, attr, attr);
+    }
+  }
+}
+
+/**
+ * Return the attribute name that reflects from the given property name on the
+ * given element. Returns undefined if the property is not reflected.
+ *
+ * @param {string} elementName - Tag name (uppercase)
+ * @param {string} propertyName - JS property name
+ * @returns {string|undefined} Reflected attribute name, or undefined
+ */
+export const reflectedAttributeName = (elementName, propertyName) => {
+  const attributes = reflectedAttributes.get(elementName);
+  if (attributes !== undefined && attributes.has(propertyName)) {
+    return attributes.get(propertyName);
+  }
+  return reflectedAttributes.get('*')?.get(propertyName);
+};

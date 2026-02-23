@@ -20,5 +20,9 @@
     "@lit-labs/ssr": "4.0.0",
     "@lit-labs/ssr-client": "1.1.8",
     "lit": "3.3.2"
+  },
+  "dependencies": {
+    "@parse5/tools": "0.7.0",
+    "parse5": "8.0.0"
   }
 }
