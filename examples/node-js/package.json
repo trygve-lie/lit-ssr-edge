@@ -8,10 +8,10 @@
     "start": "node server.js"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=22.0.0"
   },
   "dependencies": {
-    "lit": "^3.0.0",
-    "lit-ssr-edge": "file:../.."
+    "lit": "3.3.2",
+    "lit-ssr-edge": "*"
   }
 }

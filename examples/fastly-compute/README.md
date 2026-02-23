@@ -70,6 +70,8 @@ bin/main.wasm (WebAssembly binary — deployed to Fastly)
 Components and dependencies are inlined at the esbuild step; no dynamic
 imports or runtime module resolution happen inside the WASM binary.
 
+**`--platform=neutral --conditions=node` in the esbuild command** — `lit-html`'s package exports map lists the `browser` key before the `node` key. With `--platform=browser`, esbuild includes `browser` in its active conditions set, so the `browser` entry wins regardless of `--conditions=node`. That build contains `const l = document` at module level, which throws `ReferenceError: document is not defined` in the Fastly runtime (which has no DOM). Using `--platform=neutral` removes `browser` from the conditions set entirely, letting `--conditions=node` resolve `lit-html` to its SSR-safe `node/lit-html.js` build.
+
 ## Streaming
 
 Fastly Compute's SpiderMonkey runtime supports `ReadableStream` natively.
