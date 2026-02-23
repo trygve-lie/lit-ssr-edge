@@ -1,7 +1,7 @@
 {
-  "name": "lit-edge-node-example",
+  "name": "lit-ssr-edge-node-example",
   "version": "1.0.0",
-  "description": "Example: lit-edge SSR on Node.js 18+",
+  "description": "Example: lit-ssr-edge SSR on Node.js 18+",
   "type": "module",
   "private": true,
   "scripts": {
@@ -12,6 +12,6 @@
   },
   "dependencies": {
     "lit": "^3.0.0",
-    "lit-edge": "file:../.."
+    "lit-ssr-edge": "file:../.."
   }
 }

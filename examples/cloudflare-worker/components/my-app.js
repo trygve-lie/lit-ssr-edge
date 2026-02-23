@@ -42,7 +42,7 @@ export class MyApp extends LitElement {
     return html`
       <h1>${this.greeting}</h1>
       <p>You are at: <span class="path">${this.path}</span></p>
-      <p>This page was server-side rendered by lit-edge on Cloudflare Workers.</p>
+      <p>This page was server-side rendered by lit-ssr-edge on Cloudflare Workers.</p>
       <slot></slot>
     `;
   }

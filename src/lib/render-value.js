@@ -1,5 +1,5 @@
 /**
- * Core rendering engine for lit-edge.
+ * Core rendering engine for lit-ssr-edge.
  *
  * Implements template opcode generation (via parse5 AST traversal) and
  * opcode execution to produce streamed HTML output. Adapted from

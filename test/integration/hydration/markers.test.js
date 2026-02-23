@@ -1,7 +1,7 @@
 /**
  * Integration tests for hydration marker generation.
  *
- * Verifies that lit-edge embeds the correct hydration markers in rendered HTML
+ * Verifies that lit-ssr-edge embeds the correct hydration markers in rendered HTML
  * so that @lit-labs/ssr-client can hydrate the output on the client.
  *
  * These tests exercise the full render pipeline and check the raw output

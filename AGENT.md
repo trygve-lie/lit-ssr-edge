@@ -1,4 +1,4 @@
-# lit-edge
+# lit-ssr-edge
 
 **Server-side renderer for Lit web components targeting WinterTC-compatible runtimes.**
 
@@ -88,7 +88,6 @@ Choose based on what you're here to do:
 - ✅ **Phase 4:** Component support (DOM shim, ElementInternals, 53 new tests) — [`docs/PHASE_4_COMPLETE.md`](docs/PHASE_4_COMPLETE.md)
 - ✅ **Phase 5:** Directive support (validation module, public entry point, 65 new tests) — [`docs/PHASE_5_COMPLETE.md`](docs/PHASE_5_COMPLETE.md)
 - ✅ **Phase 6:** Optimisation & polish (8 KB streaming, examples, migration guide, 14 new tests) — [`docs/PHASE_6_COMPLETE.md`](docs/PHASE_6_COMPLETE.md)
-- ⏳ **Phase 6:** Optimisation & polish
 
 See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for full implementation roadmap.
 

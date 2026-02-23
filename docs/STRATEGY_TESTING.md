@@ -1,6 +1,6 @@
-# Testing Strategy for lit-edge
+# Testing Strategy for lit-ssr-edge
 
-This document outlines the testing strategy for lit-edge, ensuring our edge-compatible implementation maintains full compatibility with the original @lit-labs/ssr.
+This document outlines the testing strategy for lit-ssr-edge, ensuring our edge-compatible implementation maintains full compatibility with the original @lit-labs/ssr.
 
 ## Table of Contents
 
@@ -20,7 +20,7 @@ This document outlines the testing strategy for lit-edge, ensuring our edge-comp
 
 ### Goals
 
-1. **Compatibility verification** - Ensure lit-edge produces identical output to @lit-labs/ssr
+1. **Compatibility verification** - Ensure lit-ssr-edge produces identical output to @lit-labs/ssr
 2. **Regression prevention** - Catch breaking changes early
 3. **Edge runtime validation** - Verify functionality on Cloudflare Workers and Fastly Compute
 4. **Performance benchmarking** - Track rendering performance metrics
@@ -98,13 +98,13 @@ A unified interface allows tests to run against different implementations:
 /**
  * Creates a renderer instance for the specified implementation.
  *
- * @param {'lit-ssr' | 'lit-edge'} implementation - Which renderer to use
+ * @param {'lit-ssr' | 'lit-ssr-edge'} implementation - Which renderer to use
  * @returns {Renderer} Renderer instance
  */
-export function createRenderer(implementation = process.env.TEST_IMPL || 'lit-edge') {
+export function createRenderer(implementation = process.env.TEST_IMPL || 'lit-ssr-edge') {
   if (implementation === 'lit-ssr') {
     return new LitSSRRenderer();
-  } else if (implementation === 'lit-edge') {
+  } else if (implementation === 'lit-ssr-edge') {
     return new LitEdgeRenderer();
   }
   throw new Error(`Unknown implementation: ${implementation}`);
@@ -179,7 +179,7 @@ class LitSSRRenderer extends Renderer {
 }
 
 /**
- * Renderer for lit-edge
+ * Renderer for lit-ssr-edge
  */
 class LitEdgeRenderer extends Renderer {
   async renderToString(template) {
@@ -197,7 +197,7 @@ class LitEdgeRenderer extends Renderer {
   }
 
   registerComponents(components) {
-    // lit-edge component registration
+    // lit-ssr-edge component registration
     for (const [name, ctor] of components) {
       if (!customElements.get(name)) {
         customElements.define(name, ctor);
@@ -965,7 +965,7 @@ assertHTMLEqual(result, '<div>content</div>');
 
 ### Running Tests
 
-**Run all baseline tests against lit-edge (default):**
+**Run all baseline tests against lit-ssr-edge (default):**
 ```bash
 npm test
 ```
@@ -997,8 +997,8 @@ node --test --watch test/integration/baseline/**/*.test.js
   "scripts": {
     "test": "node --test test/integration/baseline/**/*.test.js",
     "test:lit-ssr": "TEST_IMPL=lit-ssr npm test",
-    "test:lit-edge": "TEST_IMPL=lit-edge npm test",
-    "test:all": "npm run test:lit-ssr && npm run test:lit-edge",
+    "test:lit-ssr-edge": "TEST_IMPL=lit-ssr-edge npm test",
+    "test:all": "npm run test:lit-ssr && npm run test:lit-ssr-edge",
     "test:watch": "node --test --watch test/integration/baseline/**/*.test.js",
     "test:coverage": "node --test --experimental-test-coverage test/integration/baseline/**/*.test.js",
     "test:unit": "node --test test/unit/**/*.test.js",
@@ -1011,7 +1011,7 @@ node --test --watch test/integration/baseline/**/*.test.js
 
 | Variable | Values | Default | Purpose |
 |----------|--------|---------|---------|
-| `TEST_IMPL` | `lit-ssr`, `lit-edge` | `lit-edge` | Which implementation to test |
+| `TEST_IMPL` | `lit-ssr`, `lit-ssr-edge` | `lit-ssr-edge` | Which implementation to test |
 | `TEST_VERBOSE` | `true`, `false` | `false` | Verbose output |
 | `TEST_TIMEOUT` | Number (ms) | `5000` | Test timeout |
 
@@ -1038,7 +1038,7 @@ jobs:
     strategy:
       matrix:
         node-version: [18.x, 20.x, 22.x]
-        implementation: [lit-ssr, lit-edge]
+        implementation: [lit-ssr, lit-ssr-edge]
 
     steps:
       - uses: actions/checkout@v4
@@ -1058,7 +1058,7 @@ jobs:
           TEST_IMPL: ${{ matrix.implementation }}
 
       - name: Upload coverage
-        if: matrix.implementation == 'lit-edge'
+        if: matrix.implementation == 'lit-ssr-edge'
         uses: codecov/codecov-action@v3
 
   unit:
@@ -1184,11 +1184,11 @@ await fs.writeFile(
 # Benchmark @lit-labs/ssr
 TEST_IMPL=lit-ssr node test/performance/render-benchmark.js > benchmark-lit-ssr.json
 
-# Benchmark lit-edge
-TEST_IMPL=lit-edge node test/performance/render-benchmark.js > benchmark-lit-edge.json
+# Benchmark lit-ssr-edge
+TEST_IMPL=lit-ssr-edge node test/performance/render-benchmark.js > benchmark-lit-ssr-edge.json
 
 # Compare results
-node test/performance/compare-benchmarks.js benchmark-lit-ssr.json benchmark-lit-edge.json
+node test/performance/compare-benchmarks.js benchmark-lit-ssr.json benchmark-lit-ssr-edge.json
 ```
 
 ---
@@ -1199,8 +1199,8 @@ node test/performance/compare-benchmarks.js benchmark-lit-ssr.json benchmark-lit
 
 1. **Write baseline test** - Test against @lit-labs/ssr first
 2. **Verify baseline passes** - `TEST_IMPL=lit-ssr npm test`
-3. **Implement feature in lit-edge** - Build the functionality
-4. **Run against lit-edge** - `TEST_IMPL=lit-edge npm test`
+3. **Implement feature in lit-ssr-edge** - Build the functionality
+4. **Run against lit-ssr-edge** - `TEST_IMPL=lit-ssr-edge npm test`
 5. **Iterate until passing** - Fix implementation
 6. **Verify both implementations** - `npm run test:all`
 7. **Commit passing tests** - Both implementations work
@@ -1218,7 +1218,7 @@ node test/performance/compare-benchmarks.js benchmark-lit-ssr.json benchmark-lit
 1. Set up test infrastructure (helpers, fixtures)
 2. Implement initial baseline tests
 3. Verify tests pass against @lit-labs/ssr
-4. Begin lit-edge implementation
+4. Begin lit-ssr-edge implementation
 5. Iterate until all tests pass
 
 ---

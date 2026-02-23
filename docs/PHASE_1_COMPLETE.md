@@ -10,7 +10,7 @@
 
 ## Overview
 
-Phase 1 established comprehensive performance baselines for @lit-labs/ssr before implementing lit-edge. This provides quantitative targets for the lit-edge implementation to match or exceed.
+Phase 1 established comprehensive performance baselines for @lit-labs/ssr before implementing lit-ssr-edge. This provides quantitative targets for the lit-ssr-edge implementation to match or exceed.
 
 ## Deliverables
 
@@ -132,9 +132,9 @@ Comprehensive guide covering:
 
 ---
 
-## Performance Targets for lit-edge
+## Performance Targets for lit-ssr-edge
 
-Based on the baseline results, lit-edge should target:
+Based on the baseline results, lit-ssr-edge should target:
 
 ### Tier 1 - Critical Performance (must match or exceed)
 
@@ -178,9 +178,9 @@ These operations are less frequent and can have more overhead:
 ```json
 {
   "perf": "TEST_IMPL=lit-ssr node test/performance/render-performance.js",
-  "perf:lit-edge": "TEST_IMPL=lit-edge node test/performance/render-performance.js",
+  "perf:lit-ssr-edge": "TEST_IMPL=lit-ssr-edge node test/performance/render-performance.js",
   "perf:memory": "TEST_IMPL=lit-ssr node --expose-gc test/performance/memory-profile.js",
-  "perf:memory:lit-edge": "TEST_IMPL=lit-edge node --expose-gc test/performance/memory-profile.js",
+  "perf:memory:lit-ssr-edge": "TEST_IMPL=lit-ssr-edge node --expose-gc test/performance/memory-profile.js",
   "perf:compare": "node test/performance/compare.js"
 }
 ```
@@ -213,18 +213,18 @@ Contains:
 
 ## How to Use These Baselines
 
-### During lit-edge Development
+### During lit-ssr-edge Development
 
 1. **Implement a feature** (e.g., template rendering)
 
 2. **Run benchmark:**
    ```bash
-   npm run perf:lit-edge
+   npm run perf:lit-ssr-edge
    ```
 
 3. **Compare to baseline:**
    ```bash
-   npm run perf:compare benchmark-lit-ssr-*.json benchmark-lit-edge-*.json
+   npm run perf:compare benchmark-lit-ssr-*.json benchmark-lit-ssr-edge-*.json
    ```
 
 4. **Check if within targets:**
@@ -240,7 +240,7 @@ Contains:
 ### Example Comparison
 
 ```bash
-npm run perf:compare benchmark-lit-ssr-1771843102967.json benchmark-lit-edge-XXXXX.json
+npm run perf:compare benchmark-lit-ssr-1771843102967.json benchmark-lit-ssr-edge-XXXXX.json
 ```
 
 Expected output:
@@ -248,7 +248,7 @@ Expected output:
 PERFORMANCE COMPARISON
 ========================================================
 Baseline: lit-ssr (2026-02-23T10:30:00.000Z)
-Current:  lit-edge (2026-02-23T15:45:00.000Z)
+Current:  lit-ssr-edge (2026-02-23T15:45:00.000Z)
 
 Benchmark                                | Baseline | Current  | Change       | Ratio
 --------------------------------------------------------------------------------------------
@@ -341,7 +341,7 @@ Phase 1 is successful if:
 
 ## Conclusion
 
-Phase 1 has successfully established quantitative performance baselines for @lit-labs/ssr. The benchmark suite, profiling tools, and documented targets provide a solid foundation for implementing and optimizing lit-edge.
+Phase 1 has successfully established quantitative performance baselines for @lit-labs/ssr. The benchmark suite, profiling tools, and documented targets provide a solid foundation for implementing and optimizing lit-ssr-edge.
 
 Key achievements:
 - 26 performance benchmarks covering all scenarios

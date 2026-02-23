@@ -2,10 +2,10 @@
 # https://developer.fastly.com/reference/compute/fastly-toml/
 
 authors = ["you@example.com"]
-description = "lit-edge SSR example for Fastly Compute"
+description = "lit-ssr-edge SSR example for Fastly Compute"
 language = "javascript"
 manifest_version = 3
-name = "lit-edge-fastly-example"
+name = "lit-ssr-edge-fastly-example"
 
 [scripts]
 # Build pipeline:

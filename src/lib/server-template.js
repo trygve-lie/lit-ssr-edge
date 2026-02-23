@@ -1,5 +1,5 @@
 /**
- * Server-only template support for lit-edge.
+ * Server-only template support for lit-ssr-edge.
  *
  * Server-only templates do not generate hydration markers and support
  * full document rendering including <html>, <head>, <body>, and <!DOCTYPE>.

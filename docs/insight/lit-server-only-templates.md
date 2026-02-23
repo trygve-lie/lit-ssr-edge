@@ -12,7 +12,7 @@ This document analyzes Lit's server-only templates feature, a specialized templa
 6. [Composition Rules](#composition-rules)
 7. [Use Cases](#use-cases)
 8. [Constraints and Limitations](#constraints-and-limitations)
-9. [Implementation Requirements for lit-edge](#implementation-requirements-for-lit-edge)
+9. [Implementation Requirements for lit-ssr-edge](#implementation-requirements-for-lit-ssr-edge)
 10. [Examples](#examples)
 
 ---
@@ -583,9 +583,9 @@ const template = serverHtml`
 
 ---
 
-## Implementation Requirements for lit-edge
+## Implementation Requirements for lit-ssr-edge
 
-To support server-only templates, lit-edge must:
+To support server-only templates, lit-ssr-edge must:
 
 ### 1. Detect Server-Only Templates
 
@@ -747,8 +747,8 @@ export { noChange, nothing } from './lit-html.js';
 ### Example 1: Basic Document
 
 ```javascript
-import { render } from 'lit-edge';
-import { html } from 'lit-edge/server-template.js';
+import { render } from 'lit-ssr-edge';
+import { html } from 'lit-ssr-edge/server-template.js';
 
 const template = html`
   <!DOCTYPE html>
@@ -786,7 +786,7 @@ const htmlString = await collectResult(result);
 ### Example 2: Data Serialization
 
 ```javascript
-import { html as serverHtml } from 'lit-edge/server-template.js';
+import { html as serverHtml } from 'lit-ssr-edge/server-template.js';
 
 const pageData = {
   user: { name: 'Alice', id: 123 },
@@ -817,7 +817,7 @@ const template = serverHtml`
 ### Example 3: Hybrid (Server-Only + Hydratable)
 
 ```javascript
-import { html as serverHtml } from 'lit-edge/server-template.js';
+import { html as serverHtml } from 'lit-ssr-edge/server-template.js';
 import { html } from 'lit';
 
 // Hydratable app content
@@ -897,7 +897,7 @@ const page = serverHtml`
 6. **Restrictions enforced** - No events, properties, or element parts in server-only
 7. **Performance benefit** - Cleaner output without markers
 
-### Implementation Checklist for lit-edge
+### Implementation Checklist for lit-ssr-edge
 
 - [ ] Export server-only `html`, `svg`, `mathml` functions
 - [ ] Mark templates with `_$litServerRenderMode = SERVER_ONLY`

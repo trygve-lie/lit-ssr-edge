@@ -2,7 +2,7 @@
  * Baseline tests for template rendering
  *
  * These tests run against @lit-labs/ssr to establish expected output.
- * Later, the same tests will run against lit-edge to verify compatibility.
+ * Later, the same tests will run against lit-ssr-edge to verify compatibility.
  */
 import { describe, test } from 'node:test';
 import { html } from 'lit';

@@ -1,5 +1,5 @@
 /**
- * Directive SSR support validation for lit-edge.
+ * Directive SSR support validation for lit-ssr-edge.
  *
  * Identifies directives that are client-only (they rely on browser DOM APIs or
  * asynchronous update cycles that don't exist during server-side rendering) and

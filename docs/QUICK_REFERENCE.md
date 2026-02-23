@@ -1,6 +1,6 @@
 # Quick Reference Guide
 
-**Purpose:** Fast lookups for the current lit-edge implementation without reading full phase docs or insight files.
+**Purpose:** Fast lookups for the current lit-ssr-edge implementation without reading full phase docs or insight files.
 
 **Last Updated:** Phase 5 Complete (Feb 2026)
 
@@ -35,13 +35,13 @@ import {
 
   // lit-html re-exports
   html, svg, noChange, nothing,
-} from 'lit-edge';
+} from 'lit-ssr-edge';
 ```
 
 ### Server-Only Templates (`src/server-template.js`)
 
 ```javascript
-import { html as serverHtml, noChange, nothing } from 'lit-edge/server-template.js';
+import { html as serverHtml, noChange, nothing } from 'lit-ssr-edge/server-template.js';
 
 const page = serverHtml`
   <!DOCTYPE html>
@@ -60,20 +60,20 @@ import {
   unsafeHTML, unsafeSVG, unsafeMathML,
   // Partial SSR support (render() only)
   classMap, styleMap, keyed,
-} from 'lit-edge/directives/index.js';
+} from 'lit-ssr-edge/directives/index.js';
 ```
 
 ### DOM Shim (`src/install-global-dom-shim.js`)
 
 ```javascript
 // Import once before any component bundles (Cloudflare Workers, Node.js, Deno, Bun)
-import 'lit-edge/install-global-dom-shim.js';
+import 'lit-ssr-edge/install-global-dom-shim.js';
 ```
 
 Or call programmatically:
 
 ```javascript
-import { installGlobalDomShim } from 'lit-edge';
+import { installGlobalDomShim } from 'lit-ssr-edge';
 installGlobalDomShim(); // safe to call multiple times; uses ??= internally
 ```
 
@@ -84,7 +84,7 @@ installGlobalDomShim(); // safe to call multiple times; uses ??= internally
 ### Render to String
 
 ```javascript
-import { render, collectResult } from 'lit-edge';
+import { render, collectResult } from 'lit-ssr-edge';
 import { html } from 'lit';
 
 const result = render(html`<div>Hello, ${'World'}!</div>`);
@@ -94,7 +94,7 @@ const htmlString = await collectResult(result);
 ### Stream to Response (edge runtime)
 
 ```javascript
-import { render, RenderResultReadable } from 'lit-edge';
+import { render, RenderResultReadable } from 'lit-ssr-edge';
 import { html } from 'lit';
 
 const stream = new RenderResultReadable(render(html`<div>Hello</div>`)).getStream();
@@ -104,8 +104,8 @@ return new Response(stream, { headers: { 'Content-Type': 'text/html; charset=utf
 ### Server-Only Full Document
 
 ```javascript
-import { render, collectResult } from 'lit-edge';
-import { html as serverHtml } from 'lit-edge/server-template.js';
+import { render, collectResult } from 'lit-ssr-edge';
+import { html as serverHtml } from 'lit-ssr-edge/server-template.js';
 import { html } from 'lit';
 
 const page = serverHtml`
@@ -120,8 +120,8 @@ const htmlString = await collectResult(render(page));
 ### Render Components
 
 ```javascript
-import 'lit-edge/install-global-dom-shim.js'; // must be first
-import { render, collectResult } from 'lit-edge';
+import 'lit-ssr-edge/install-global-dom-shim.js'; // must be first
+import { render, collectResult } from 'lit-ssr-edge';
 import './my-components-bundle.js';           // registers custom elements
 import { html } from 'lit';
 
@@ -289,7 +289,7 @@ If a component calls `attachInternals()` and sets `ariaLabel`, `ariaPressed`, et
 
 ### Directive Mechanism
 
-lit-edge patches directive classes at first use to call `render()` instead of `update()`:
+lit-ssr-edge patches directive classes at first use to call `render()` instead of `update()`:
 
 ```javascript
 // In src/lib/render-value.js
@@ -317,8 +317,8 @@ Implemented in `src/lib/directives-validation.js` — client-only directives are
 ### Import
 
 ```javascript
-// lit-edge (correct)
-import { html as serverHtml } from 'lit-edge/server-template.js';
+// lit-ssr-edge (correct)
+import { html as serverHtml } from 'lit-ssr-edge/server-template.js';
 
 // NOT: import { html as serverHtml } from '@lit-labs/ssr'; // ← old reference
 ```
@@ -345,7 +345,7 @@ import { html as serverHtml } from 'lit-edge/server-template.js';
 HTMLElement, Element, Event, CustomEvent, EventTarget, CSSStyleSheet, customElements
 ```
 
-Source: `@lit-labs/ssr-dom-shim` (pure JS, WinterTC-compatible, runtime dependency of lit-edge).
+Source: `@lit-labs/ssr-dom-shim` (pure JS, WinterTC-compatible, runtime dependency of lit-ssr-edge).
 
 ---
 
@@ -402,7 +402,7 @@ require()                         →  ESM only
 import { createRenderer, stripHydrationMarkers } from '../../helpers/renderer.js';
 import { assertHTMLEqual } from '../../helpers/html-compare.js';
 
-const renderer = createRenderer(); // TEST_IMPL env var: 'lit-edge' or 'lit-ssr'
+const renderer = createRenderer(); // TEST_IMPL env var: 'lit-ssr-edge' or 'lit-ssr'
 const result = await renderer.renderToString(template);
 const stripped = stripHydrationMarkers(result);
 assertHTMLEqual(stripped, '<div>Expected</div>');
@@ -425,7 +425,7 @@ const strip = (str) =>
 
 ```bash
 # Baseline (122 tests, cross-implementation)
-TEST_IMPL=lit-edge node --test test/integration/baseline/**/*.test.js
+TEST_IMPL=lit-ssr-edge node --test test/integration/baseline/**/*.test.js
 TEST_IMPL=lit-ssr  node --test test/integration/baseline/**/*.test.js
 
 # Phase 3 — hydration
@@ -438,8 +438,8 @@ node --test test/integration/components/*.test.js
 node --test test/integration/directives/*.test.js
 
 # Performance
-npm run perf:lit-edge
-npm run perf:compare benchmark-lit-ssr-*.json benchmark-lit-edge-*.json
+npm run perf:lit-ssr-edge
+npm run perf:compare benchmark-lit-ssr-*.json benchmark-lit-ssr-edge-*.json
 ```
 
 ---

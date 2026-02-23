@@ -56,7 +56,7 @@ export class MyEdge extends LitElement {
         <span class="tag">SSR</span>
       </div>
       <p>
-        This page was server-side rendered by lit-edge running on Fastly Compute
+        This page was server-side rendered by lit-ssr-edge running on Fastly Compute
         (SpiderMonkey + WASM). No nodejs_compat or polyfills required.
       </p>
       <slot></slot>

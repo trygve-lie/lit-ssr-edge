@@ -1,5 +1,5 @@
 /**
- * SSR-compatible Lit directives for lit-edge.
+ * SSR-compatible Lit directives for lit-ssr-edge.
  *
  * This module re-exports all directives that work correctly during server-side
  * rendering. Import from here instead of `lit/directives/*` to get the curated
@@ -35,15 +35,15 @@
  *
  * ── Not supported ─────────────────────────────────────────────────────────────
  * These directives rely on browser DOM APIs or Promise/AsyncIterable resolution
- * that cannot happen during synchronous SSR. Using them with lit-edge throws a
+ * that cannot happen during synchronous SSR. Using them with lit-ssr-edge throws a
  * descriptive error at render time.
  *
  *   cache, live, until, asyncAppend, asyncReplace, ref, templateContent
  *
  * @example
  * ```js
- * import { render, collectResult } from 'lit-edge';
- * import { repeat, when, classMap } from 'lit-edge/directives/index.js';
+ * import { render, collectResult } from 'lit-ssr-edge';
+ * import { repeat, when, classMap } from 'lit-ssr-edge/directives/index.js';
  * import { html } from 'lit';
  *
  * const items = ['a', 'b', 'c'];

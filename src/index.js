@@ -1,12 +1,12 @@
 /**
- * lit-edge - Server-side renderer for Lit web components
+ * lit-ssr-edge - Server-side renderer for Lit web components
  *
  * Targets WinterTC-compatible runtimes (Cloudflare Workers, Fastly Compute,
  * Node.js 18+, Deno, Bun) using only Web Platform APIs.
  *
  * @example
  * ```js
- * import { render, collectResult } from 'lit-edge';
+ * import { render, collectResult } from 'lit-ssr-edge';
  * import { html } from 'lit';
  *
  * const template = html`<div>Hello, ${name}!</div>`;
@@ -16,7 +16,7 @@
  *
  * @example Streaming (edge runtime):
  * ```js
- * import { render, RenderResultReadable } from 'lit-edge';
+ * import { render, RenderResultReadable } from 'lit-ssr-edge';
  * import { html } from 'lit';
  *
  * const template = html`<div>Hello</div>`;

@@ -1,7 +1,7 @@
 /**
- * Node.js HTTP server — lit-edge SSR example.
+ * Node.js HTTP server — lit-ssr-edge SSR example.
  *
- * Demonstrates how to use lit-edge to server-side render Lit web components
+ * Demonstrates how to use lit-ssr-edge to server-side render Lit web components
  * in a Node.js 18+ environment.
  *
  * Usage:
@@ -14,11 +14,11 @@
 //    On Node.js, lit-element installs this automatically as a transitive
 //    dependency, but explicitly importing here makes the dependency clear
 //    and works even when lit is not in scope.
-import 'lit-edge/install-global-dom-shim.js';
+import 'lit-ssr-edge/install-global-dom-shim.js';
 
 import { createServer } from 'node:http';
-import { render, RenderResultReadable, collectResult } from 'lit-edge';
-import { html as serverHtml } from 'lit-edge/server-template.js';
+import { render, RenderResultReadable, collectResult } from 'lit-ssr-edge';
+import { html as serverHtml } from 'lit-ssr-edge/server-template.js';
 import { html } from 'lit';
 
 // 2. Import components (registers custom elements as a side effect).
@@ -30,7 +30,7 @@ const PORT = process.env.PORT ?? 3000;
 
 /**
  * Builds the full HTML document for a given URL path.
- * Returns a lit-edge RenderResult iterable.
+ * Returns a lit-ssr-edge RenderResult iterable.
  */
 function buildPage(pathname) {
   return render(
@@ -39,7 +39,7 @@ function buildPage(pathname) {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>lit-edge Node.js example</title>
+    <title>lit-ssr-edge Node.js example</title>
   </head>
   <body>
     ${html`
@@ -99,5 +99,5 @@ const server = createServer(async (req, res) => {
 });
 
 server.listen(PORT, () => {
-  console.log(`lit-edge SSR server running at http://localhost:${PORT}`);
+  console.log(`lit-ssr-edge SSR server running at http://localhost:${PORT}`);
 });

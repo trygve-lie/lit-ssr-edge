@@ -1,6 +1,6 @@
-# lit-edge — Node.js example
+# lit-ssr-edge — Node.js example
 
-Server-side renders Lit web components in a Node.js 18+ HTTP server using lit-edge.
+Server-side renders Lit web components in a Node.js 18+ HTTP server using lit-ssr-edge.
 
 ## Requirements
 
@@ -19,7 +19,7 @@ npm start
 ```
 server.js
   │
-  ├─ import 'lit-edge/install-global-dom-shim.js'   → sets up HTMLElement, customElements
+  ├─ import 'lit-ssr-edge/install-global-dom-shim.js'   → sets up HTMLElement, customElements
   ├─ import './components/my-page.js'                → registers <my-page>
   │
   └─ createServer((req, res) => {
@@ -51,7 +51,7 @@ res.end(htmlString);
 
 ## Web Streams on Node.js
 
-lit-edge produces `ReadableStream<Uint8Array>` (Web Streams API), which is
+lit-ssr-edge produces `ReadableStream<Uint8Array>` (Web Streams API), which is
 available natively in Node.js 18+. The stream's `getReader()` API is used to
 pipe chunks into Node's `ServerResponse`.
 

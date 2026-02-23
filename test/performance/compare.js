@@ -12,7 +12,7 @@ if (args.length !== 2) {
   console.error('Usage: node test/performance/compare.js <baseline-file> <current-file>');
   console.error('');
   console.error('Example:');
-  console.error('  node test/performance/compare.js benchmark-lit-ssr-1234.json benchmark-lit-edge-5678.json');
+  console.error('  node test/performance/compare.js benchmark-lit-ssr-1234.json benchmark-lit-ssr-edge-5678.json');
   process.exit(1);
 }
 

@@ -1,6 +1,6 @@
-# lit-edge Architecture
+# lit-ssr-edge Architecture
 
-This document outlines the architecture for lit-edge, a server-side renderer for Lit web components targeting edge workers and WinterTC-compatible runtimes.
+This document outlines the architecture for lit-ssr-edge, a server-side renderer for Lit web components targeting edge workers and WinterTC-compatible runtimes.
 
 ## Table of Contents
 
@@ -26,7 +26,7 @@ This document outlines the architecture for lit-edge, a server-side renderer for
 
 ### Project Goals
 
-lit-edge provides server-side rendering for Lit components on WinterTC-compatible runtimes, including edge computing platforms (Cloudflare Workers, Fastly Compute), modern Node.js, Deno, and Bun. It maintains compatibility with Lit's official `@lit-labs/ssr-client` hydration.
+lit-ssr-edge provides server-side rendering for Lit components on WinterTC-compatible runtimes, including edge computing platforms (Cloudflare Workers, Fastly Compute), modern Node.js, Deno, and Bun. It maintains compatibility with Lit's official `@lit-labs/ssr-client` hydration.
 
 ### Core Requirements
 
@@ -112,7 +112,7 @@ Components are bundled at build time, not resolved at runtime:
 ### Proposed Directory Layout
 
 ```
-lit-edge/
+lit-ssr-edge/
 ├── src/
 │   ├── index.js                    # Main entry point
 │   ├── server-template.js          # Server-only template exports
@@ -652,11 +652,11 @@ function* renderCustomElement(op, values, renderInfo) {
 
 ### Template Types
 
-lit-edge supports two template types:
+lit-ssr-edge supports two template types:
 
 #### Regular Templates (Hydratable)
 
-**Import:** `import { html } from 'lit-edge'`
+**Import:** `import { html } from 'lit-ssr-edge'`
 
 **Characteristics:**
 - Generate hydration markers
@@ -666,7 +666,7 @@ lit-edge supports two template types:
 
 **Example:**
 ```javascript
-import { html } from 'lit-edge';
+import { html } from 'lit-ssr-edge';
 const template = html`<div class=${cls}>${content}</div>`;
 ```
 
@@ -684,7 +684,7 @@ const template = html`<div class=${cls}>${content}</div>`;
 
 #### Server-Only Templates (Non-Hydratable)
 
-**Import:** `import { html } from 'lit-edge/server-template.js'`
+**Import:** `import { html } from 'lit-ssr-edge/server-template.js'`
 
 **Characteristics:**
 - No hydration markers
@@ -695,7 +695,7 @@ const template = html`<div class=${cls}>${content}</div>`;
 
 **Example:**
 ```javascript
-import { html as serverHtml } from 'lit-edge/server-template.js';
+import { html as serverHtml } from 'lit-ssr-edge/server-template.js';
 const template = serverHtml`<!DOCTYPE html><html>...</html>`;
 ```
 
@@ -832,7 +832,7 @@ function setComponentProperties(instance, attributes, properties) {
 
 ### Marker Generation
 
-lit-edge generates markers compatible with `@lit-labs/ssr-client`:
+lit-ssr-edge generates markers compatible with `@lit-labs/ssr-client`:
 
 ```javascript
 function generateHydrationMarkers(hydratable, digest) {
@@ -952,7 +952,7 @@ export { html, svg, mathml, noChange, nothing } from './lib/server-template.js';
 
 **Basic rendering:**
 ```javascript
-import { render, collectResult } from 'lit-edge';
+import { render, collectResult } from 'lit-ssr-edge';
 import { html } from 'lit';
 
 const template = html`<div>Hello, ${name}!</div>`;
@@ -962,7 +962,7 @@ const htmlString = await collectResult(result);
 
 **Streaming:**
 ```javascript
-import { render, RenderResultReadable } from 'lit-edge';
+import { render, RenderResultReadable } from 'lit-ssr-edge';
 import { html } from 'lit';
 
 const template = html`<div>Content</div>`;
@@ -977,8 +977,8 @@ return new Response(readable.getStream(), {
 
 **Server-only template:**
 ```javascript
-import { render, collectResult } from 'lit-edge';
-import { html as serverHtml } from 'lit-edge/server-template.js';
+import { render, collectResult } from 'lit-ssr-edge';
+import { html as serverHtml } from 'lit-ssr-edge/server-template.js';
 import { html } from 'lit';
 
 const page = serverHtml`
@@ -996,7 +996,7 @@ const htmlString = await collectResult(result);
 
 **Component rendering:**
 ```javascript
-import { render } from 'lit-edge';
+import { render } from 'lit-ssr-edge';
 import { html } from 'lit';
 import './components-bundle.js'; // Pre-bundled components
 
@@ -1289,7 +1289,7 @@ C. **JIT-style optimization**
 
 ### Target Runtimes
 
-lit-edge targets **WinterTC-compatible runtimes** that implement the Minimum Common Web Platform API:
+lit-ssr-edge targets **WinterTC-compatible runtimes** that implement the Minimum Common Web Platform API:
 
 1. **Cloudflare Workers**
    - V8 isolate-based
@@ -1328,11 +1328,11 @@ lit-edge targets **WinterTC-compatible runtimes** that implement the Minimum Com
 | Custom elements (global) | ✅ | ✅ | ❌* | ✅ | ✅ |
 | ESM modules | ✅ | ✅ | ✅ | ✅ | ✅ |
 
-*Node.js requires DOM shim for `customElements` (provided by lit-edge)
+*Node.js requires DOM shim for `customElements` (provided by lit-ssr-edge)
 
 ### Cloudflare Workers: No nodejs_compat Required
 
-lit-edge works on Cloudflare Workers **without** enabling the `nodejs_compat` compatibility flag.
+lit-ssr-edge works on Cloudflare Workers **without** enabling the `nodejs_compat` compatibility flag.
 
 **Why?**
 - Uses only Web Platform APIs (WinterTC Minimum Common API)
@@ -1367,7 +1367,7 @@ compatibility_date = "2024-01-01"
 
 ### Modern JavaScript & Node.js Versions
 
-lit-edge assumes **modern JavaScript (ES2026)** and **modern runtime support**:
+lit-ssr-edge assumes **modern JavaScript (ES2026)** and **modern runtime support**:
 
 **JavaScript features:**
 - Top-level `await`
@@ -1389,7 +1389,7 @@ lit-edge assumes **modern JavaScript (ES2026)** and **modern runtime support**:
 
 **Runtime detection:**
 ```javascript
-// lit-edge detects runtime automatically
+// lit-ssr-edge detects runtime automatically
 const isNode = typeof process !== 'undefined' &&
                process.versions?.node !== undefined;
 const isCloudflare = typeof caches !== 'undefined' &&
@@ -1448,7 +1448,7 @@ See [STRATEGY_TESTING.md](./STRATEGY_TESTING.md) for comprehensive testing strat
 
 **Key points:**
 
-1. **Baseline tests** - Run against both `@lit-labs/ssr` and `lit-edge`
+1. **Baseline tests** - Run against both `@lit-labs/ssr` and `lit-ssr-edge`
 2. **Full HTML comparison** - No partial matching
 3. **Fixture-based** - Reusable components
 4. **Renderer abstraction** - Switch implementations via env var
@@ -1721,7 +1721,7 @@ TemplateError: Failed to parse template
 **Goals:**
 - Establish comprehensive integration test suite
 - All tests pass against original @lit-labs/ssr
-- Zero lit-edge implementation code
+- Zero lit-ssr-edge implementation code
 
 **Deliverables:**
 - Test infrastructure (helpers, fixtures, renderer abstraction)
@@ -1737,7 +1737,7 @@ TemplateError: Failed to parse template
 
 **Success Criteria:**
 - ✅ All tests pass with `TEST_IMPL=lit-ssr`
-- ✅ Tests use renderer abstraction (ready for lit-edge)
+- ✅ Tests use renderer abstraction (ready for lit-ssr-edge)
 - ✅ Fixtures cover common use cases
 - ✅ Full HTML comparison (no partial matching)
 
@@ -1769,7 +1769,7 @@ TemplateError: Failed to parse template
 **Success Criteria:**
 - ✅ Consistent benchmark results for @lit-labs/ssr
 - ✅ Performance metrics documented
-- ✅ Benchmark suite ready for lit-edge comparison
+- ✅ Benchmark suite ready for lit-ssr-edge comparison
 
 **Estimated effort:** 1 week
 
@@ -1792,7 +1792,7 @@ TemplateError: Failed to parse template
 - HTML escaping
 
 **Tests:**
-- Run baseline tests with `TEST_IMPL=lit-edge`
+- Run baseline tests with `TEST_IMPL=lit-ssr-edge`
 - Simple templates
 - Primitives (string, number, boolean)
 - Nested templates

@@ -1,7 +1,7 @@
 /**
  * Phase 5 integration tests — unsupported (client-only) directives.
  *
- * Verifies that lit-edge throws a clear, informative error when a directive
+ * Verifies that lit-ssr-edge throws a clear, informative error when a directive
  * that requires browser DOM APIs or asynchronous update cycles is used during
  * server-side rendering.
  *

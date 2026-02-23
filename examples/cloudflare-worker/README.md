@@ -1,15 +1,15 @@
-# lit-edge — Cloudflare Workers example
+# lit-ssr-edge — Cloudflare Workers example
 
-Server-side renders Lit web components on Cloudflare Workers using lit-edge.
+Server-side renders Lit web components on Cloudflare Workers using lit-ssr-edge.
 
-**No `nodejs_compat` flag required.** lit-edge uses only Web Platform APIs.
+**No `nodejs_compat` flag required.** lit-ssr-edge uses only Web Platform APIs.
 
 ## How it works
 
 ```
 worker.js                        (entry point)
   │
-  ├─ import 'lit-edge/install-global-dom-shim.js'   → sets up HTMLElement, customElements
+  ├─ import 'lit-ssr-edge/install-global-dom-shim.js'   → sets up HTMLElement, customElements
   ├─ import './components/my-app.js'                 → registers <my-app>
   │
   └─ fetch(request) → render(serverHtml`...`) → new Response(stream)
@@ -37,7 +37,7 @@ npm run deploy    # deploy to your Cloudflare account
 
 **`wrangler.toml`** — no `nodejs_compat` flag:
 ```toml
-name = "lit-edge-example"
+name = "lit-ssr-edge-example"
 main = "dist/worker.js"
 compatibility_date = "2024-09-23"
 # No compatibility_flags = ["nodejs_compat"] needed!
@@ -45,8 +45,8 @@ compatibility_date = "2024-09-23"
 
 **`worker.js`** — DOM shim must be the first import:
 ```js
-import 'lit-edge/install-global-dom-shim.js';  // must be first
-import { render, RenderResultReadable } from 'lit-edge';
+import 'lit-ssr-edge/install-global-dom-shim.js';  // must be first
+import { render, RenderResultReadable } from 'lit-ssr-edge';
 import './components/my-app.js';
 ```
 
@@ -56,7 +56,7 @@ into `dist/worker.js` by the bundler.
 
 ## Streaming
 
-lit-edge uses `ReadableStream` for output, which passes directly to the
+lit-ssr-edge uses `ReadableStream` for output, which passes directly to the
 `Response` constructor — no buffering, no conversion:
 
 ```js
@@ -81,4 +81,4 @@ To hydrate components on the client, add to your HTML head:
 ```
 
 Then use `hydrate()` from `@lit-labs/ssr-client` or let LitElement handle it
-automatically via the `defer-hydration` attribute that lit-edge emits.
+automatically via the `defer-hydration` attribute that lit-ssr-edge emits.

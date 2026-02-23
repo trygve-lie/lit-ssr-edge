@@ -1,4 +1,4 @@
-# lit-edge
+# lit-ssr-edge
 
 Server-side renderer for Lit web components targeting WinterTC-compatible runtimes.
 
@@ -23,7 +23,7 @@ See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for the full roadmap and [`do
 ## Usage
 
 ```js
-import { render, collectResult } from 'lit-edge';
+import { render, collectResult } from 'lit-ssr-edge';
 import { html } from 'lit';
 
 const template = html`<div>Hello, ${'World'}!</div>`;
@@ -34,7 +34,7 @@ const htmlString = await collectResult(result);
 ### Streaming (edge runtime)
 
 ```js
-import { render, RenderResultReadable } from 'lit-edge';
+import { render, RenderResultReadable } from 'lit-ssr-edge';
 import { html } from 'lit';
 
 export default {
@@ -54,8 +54,8 @@ On runtimes without browser DOM globals (Cloudflare Workers, Fastly Compute, Nod
 
 ```js
 // worker.js
-import 'lit-edge/install-global-dom-shim.js';  // sets up HTMLElement, customElements, etc.
-import { render, RenderResultReadable } from 'lit-edge';
+import 'lit-ssr-edge/install-global-dom-shim.js';  // sets up HTMLElement, customElements, etc.
+import { render, RenderResultReadable } from 'lit-ssr-edge';
 import './my-components-bundle.js';             // registers custom elements
 import { html } from 'lit';
 
@@ -74,8 +74,8 @@ export default {
 ### Server-only templates (full documents, no hydration)
 
 ```js
-import { render, collectResult } from 'lit-edge';
-import { html as serverHtml } from 'lit-edge/server-template.js';
+import { render, collectResult } from 'lit-ssr-edge';
+import { html as serverHtml } from 'lit-ssr-edge/server-template.js';
 import { html } from 'lit';
 
 const page = serverHtml`
@@ -106,8 +106,8 @@ const htmlString = await collectResult(render(page));
 ## Running tests
 
 ```bash
-# Baseline integration tests against lit-edge (122 tests)
-TEST_IMPL=lit-edge node --test test/integration/baseline/**/*.test.js
+# Baseline integration tests against lit-ssr-edge (122 tests)
+TEST_IMPL=lit-ssr-edge node --test test/integration/baseline/**/*.test.js
 
 # Phase 3 hydration tests (51 tests)
 node --test test/unit/*.test.js test/integration/hydration/*.test.js
@@ -125,8 +125,8 @@ node --test test/integration/streaming/*.test.js
 TEST_IMPL=lit-ssr node --test test/integration/baseline/**/*.test.js
 
 # Performance benchmarks
-npm run perf:lit-edge
-npm run perf:compare benchmark-lit-ssr-*.json benchmark-lit-edge-*.json
+npm run perf:lit-ssr-edge
+npm run perf:compare benchmark-lit-ssr-*.json benchmark-lit-ssr-edge-*.json
 ```
 
 ## Documentation

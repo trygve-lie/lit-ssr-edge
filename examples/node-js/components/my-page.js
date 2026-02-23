@@ -34,8 +34,8 @@ export class MyPage extends LitElement {
 
   constructor() {
     super();
-    this.title = 'lit-edge on Node.js';
-    this.content = 'Server-side rendered with lit-edge.';
+    this.title = 'lit-ssr-edge on Node.js';
+    this.content = 'Server-side rendered with lit-ssr-edge.';
   }
 
   render() {

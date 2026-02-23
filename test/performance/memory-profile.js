@@ -99,7 +99,7 @@ async function profileMemory(name, fn, iterations = 1000) {
 async function runMemoryProfiles() {
   console.log('\n🔍 Memory Profiling');
   console.log('='.repeat(80));
-  console.log(`Implementation: ${process.env.TEST_IMPL || 'lit-edge'}`);
+  console.log(`Implementation: ${process.env.TEST_IMPL || 'lit-ssr-edge'}`);
   console.log(`Node version: ${process.version}`);
   console.log(`Platform: ${process.platform} ${process.arch}`);
 
@@ -213,7 +213,7 @@ async function runMemoryProfiles() {
 
   // Save results
   const fs = await import('node:fs/promises');
-  const implementation = process.env.TEST_IMPL || 'lit-edge';
+  const implementation = process.env.TEST_IMPL || 'lit-ssr-edge';
   const filename = `memory-profile-${implementation}-${Date.now()}.json`;
 
   await fs.writeFile(filename, JSON.stringify({
