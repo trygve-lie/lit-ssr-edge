@@ -1,0 +1,25 @@
+# Fastly Compute package manifest.
+# https://developer.fastly.com/reference/compute/fastly-toml/
+
+authors = ["you@example.com"]
+description = "lit-edge SSR example for Fastly Compute"
+language = "javascript"
+manifest_version = 3
+name = "lit-edge-fastly-example"
+
+[scripts]
+# Build pipeline:
+#   1. esbuild bundles src/index.js (ESM) → dist/bundle.js (single file)
+#   2. js-compute-runtime compiles dist/bundle.js → bin/main.wasm
+build = "npm run build"
+
+# Runs 'npm install' automatically after 'fastly compute init'.
+post_init = "npm install"
+
+[local_server]
+# No [local_server.backends] section needed — this example serves pure SSR
+# responses and does not make upstream origin requests.
+#
+# If your application fetches from a backend, add:
+#   [local_server.backends.my_backend]
+#   url = "https://api.example.com"

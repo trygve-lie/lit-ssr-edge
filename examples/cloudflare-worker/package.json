@@ -1,0 +1,20 @@
+{
+  "name": "lit-edge-cloudflare-worker-example",
+  "version": "1.0.0",
+  "description": "Example: lit-edge SSR on Cloudflare Workers (no nodejs_compat required)",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "esbuild worker.js --bundle --format=esm --outfile=dist/worker.js --platform=browser --target=es2022",
+    "dev": "npm run build && wrangler dev",
+    "deploy": "npm run build && wrangler deploy"
+  },
+  "dependencies": {
+    "lit": "^3.0.0",
+    "lit-edge": "file:../.."
+  },
+  "devDependencies": {
+    "esbuild": "^0.21.0",
+    "wrangler": "^3.0.0"
+  }
+}
