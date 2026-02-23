@@ -32,6 +32,10 @@ export { collectResult, collectResultSync } from './lib/render-result.js';
 // Streaming (Web Streams API)
 export { RenderResultReadable } from './lib/render-stream.js';
 
+// Hydration support
+export { digestForTemplateResult } from './lib/digest.js';
+export { openTemplatePart, openPart, closePart, nodeMarker } from './lib/markers.js';
+
 // Template type detection utility
 export { isHydratable } from './lib/server-template.js';
 
