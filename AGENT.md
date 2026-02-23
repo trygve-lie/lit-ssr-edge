@@ -79,14 +79,14 @@ Choose based on what you're here to do:
 
 ### Project Status
 
-**Current Phase:** Phase 4 Complete ✅
+**Current Phase:** Phase 5 Complete ✅
 
 - ✅ **Phase 0:** Baseline integration tests (122 tests passing) — [`docs/PHASE_0_ALIGNMENT.md`](docs/PHASE_0_ALIGNMENT.md)
 - ✅ **Phase 1:** Baseline performance tests (26 benchmarks, targets defined) — [`docs/PHASE_1_COMPLETE.md`](docs/PHASE_1_COMPLETE.md)
 - ✅ **Phase 2:** Core rendering implementation (122/122 baseline tests passing) — [`docs/PHASE_2_COMPLETE.md`](docs/PHASE_2_COMPLETE.md)
 - ✅ **Phase 3:** Hydration support (native digest + marker module, 51 new tests) — [`docs/PHASE_3_COMPLETE.md`](docs/PHASE_3_COMPLETE.md)
 - ✅ **Phase 4:** Component support (DOM shim, ElementInternals, 53 new tests) — [`docs/PHASE_4_COMPLETE.md`](docs/PHASE_4_COMPLETE.md)
-- ⏳ **Phase 5:** Directive support — formalise all directives, add error for unsupported ones
+- ✅ **Phase 5:** Directive support (validation module, public entry point, 65 new tests) — [`docs/PHASE_5_COMPLETE.md`](docs/PHASE_5_COMPLETE.md)
 - ⏳ **Phase 6:** Optimisation & polish
 
 See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for full implementation roadmap.

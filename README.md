@@ -13,12 +13,12 @@ Runs on Cloudflare Workers (no `nodejs_compat` flag), Fastly Compute, Node.js 18
 | 2 | Core rendering engine | ✅ Complete |
 | 3 | Hydration support (native digest + markers) | ✅ Complete |
 | 4 | Component support (DOM shim, ElementInternals, full test suite) | ✅ Complete |
-| 5 | Directive support (formalise all directives) | ⏳ Planned |
+| 5 | Directive support (validation module, public entry point, 65 tests) | ✅ Complete |
 | 6 | Optimisation & polish | ⏳ Planned |
 
-**Current:** Phase 4 complete — 226 tests passing (122 baseline + 51 hydration + 53 component).
+**Current:** Phase 5 complete — 291 tests passing (122 baseline + 51 hydration + 53 component + 65 directive).
 
-See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for the full roadmap and [`docs/PHASE_3_COMPLETE.md`](docs/PHASE_3_COMPLETE.md) for the latest phase summary.
+See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for the full roadmap and [`docs/PHASE_5_COMPLETE.md`](docs/PHASE_5_COMPLETE.md) for the latest phase summary.
 
 ## Usage
 
@@ -115,6 +115,9 @@ node --test test/unit/*.test.js test/integration/hydration/*.test.js
 # Phase 4 component tests (53 tests)
 node --test test/integration/components/*.test.js
 
+# Phase 5 directive tests (65 tests)
+node --test test/integration/directives/*.test.js
+
 # Baseline tests against @lit-labs/ssr (reference)
 TEST_IMPL=lit-ssr node --test test/integration/baseline/**/*.test.js
 
@@ -134,6 +137,7 @@ npm run perf:compare benchmark-lit-ssr-*.json benchmark-lit-edge-*.json
 | [`docs/PHASE_2_COMPLETE.md`](docs/PHASE_2_COMPLETE.md) | Phase 2 — core rendering engine |
 | [`docs/PHASE_3_COMPLETE.md`](docs/PHASE_3_COMPLETE.md) | Phase 3 — hydration support |
 | [`docs/PHASE_4_COMPLETE.md`](docs/PHASE_4_COMPLETE.md) | Phase 4 — component support |
+| [`docs/PHASE_5_COMPLETE.md`](docs/PHASE_5_COMPLETE.md) | Phase 5 — directive support |
 | [`docs/insight/`](docs/insight/) | Deep research on Lit internals and edge runtimes |
 
 ## External references
