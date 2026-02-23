@@ -31,7 +31,8 @@ const {
   isIterable,
 } = _$LH;
 
-import { digestForTemplateResult } from '@lit-labs/ssr-client';
+import { digestForTemplateResult } from './digest.js';
+import { openTemplatePart, openPart, closePart, nodeMarker } from './markers.js';
 import { getElementRenderer } from './element-renderer.js';
 import { escapeHtml } from './util/escape-html.js';
 import { parseFragment, parse } from 'parse5';
@@ -396,15 +397,15 @@ export function renderValue(value, renderInfo, hydratable = true) {
 
   if (value != null && isTemplateResult(value)) {
     if (hydratable) {
-      result.push(`<!--lit-part ${digestForTemplateResult(value)}-->`);
+      result.push(openTemplatePart(digestForTemplateResult(value)));
     }
     result.push(() => renderTemplateResult(value, renderInfo));
     if (hydratable) {
-      result.push(`<!--/lit-part-->`);
+      result.push(closePart);
     }
   } else {
     if (hydratable) {
-      result.push(`<!--lit-part-->`);
+      result.push(openPart());
     }
     if (
       value === undefined ||
@@ -423,7 +424,7 @@ export function renderValue(value, renderInfo, hydratable = true) {
       );
     }
     if (hydratable) {
-      result.push(`<!--/lit-part-->`);
+      result.push(closePart);
     }
   }
 
@@ -571,7 +572,7 @@ function renderTemplateResult(result, renderInfo) {
               renderInfo.customElementHostStack.length > 0) &&
             hydratable
           ) {
-            return `<!--lit-node ${op.nodeIndex}-->`;
+            return nodeMarker(op.nodeIndex);
           }
           return undefined;
         });
