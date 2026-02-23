@@ -12,11 +12,11 @@ Runs on Cloudflare Workers (no `nodejs_compat` flag), Fastly Compute, Node.js 18
 | 1 | Baseline performance benchmarks | ✅ Complete |
 | 2 | Core rendering engine | ✅ Complete |
 | 3 | Hydration support (native digest + markers) | ✅ Complete |
-| 4 | Component support (formalise LitElement) | ⏳ Planned |
+| 4 | Component support (DOM shim, ElementInternals, full test suite) | ✅ Complete |
 | 5 | Directive support (formalise all directives) | ⏳ Planned |
 | 6 | Optimisation & polish | ⏳ Planned |
 
-**Current:** Phase 3 complete — 122 baseline tests + 51 hydration tests passing (173 total).
+**Current:** Phase 4 complete — 226 tests passing (122 baseline + 51 hydration + 53 component).
 
 See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for the full roadmap and [`docs/PHASE_3_COMPLETE.md`](docs/PHASE_3_COMPLETE.md) for the latest phase summary.
 
@@ -48,6 +48,29 @@ export default {
 };
 ```
 
+### Rendering Lit components (edge runtime setup)
+
+On runtimes without browser DOM globals (Cloudflare Workers, Fastly Compute, Node.js, Deno, Bun), import the DOM shim before any component bundles:
+
+```js
+// worker.js
+import 'lit-edge/install-global-dom-shim.js';  // sets up HTMLElement, customElements, etc.
+import { render, RenderResultReadable } from 'lit-edge';
+import './my-components-bundle.js';             // registers custom elements
+import { html } from 'lit';
+
+export default {
+  fetch() {
+    const stream = new RenderResultReadable(
+      render(html`<my-app></my-app>`)
+    ).getStream();
+    return new Response(stream, {
+      headers: { 'Content-Type': 'text/html; charset=utf-8' },
+    });
+  },
+};
+```
+
 ### Server-only templates (full documents, no hydration)
 
 ```js
@@ -71,7 +94,7 @@ const htmlString = await collectResult(render(page));
 - **WinterTC-compatible** — Cloudflare Workers (no `nodejs_compat`), Fastly Compute, Node.js 18+, Deno, Bun
 - **Web Platform APIs only** — `ReadableStream`, `TextEncoder`, `btoa`, `fetch()` (no `stream.Readable`, `fs`, `vm`, `Buffer`)
 - **Modern JavaScript** — ES modules, ES2026 features
-- **Minimal dependencies** — `parse5` and `@parse5/tools` are the only runtime dependencies
+- **Minimal dependencies** — `parse5`, `@parse5/tools`, `@lit-labs/ssr-dom-shim` are the only runtime dependencies
 
 ## Non-goals
 
@@ -83,11 +106,14 @@ const htmlString = await collectResult(render(page));
 ## Running tests
 
 ```bash
-# Baseline integration tests against lit-edge
+# Baseline integration tests against lit-edge (122 tests)
 TEST_IMPL=lit-edge node --test test/integration/baseline/**/*.test.js
 
-# Phase 3 hydration tests
+# Phase 3 hydration tests (51 tests)
 node --test test/unit/*.test.js test/integration/hydration/*.test.js
+
+# Phase 4 component tests (53 tests)
+node --test test/integration/components/*.test.js
 
 # Baseline tests against @lit-labs/ssr (reference)
 TEST_IMPL=lit-ssr node --test test/integration/baseline/**/*.test.js
@@ -107,6 +133,7 @@ npm run perf:compare benchmark-lit-ssr-*.json benchmark-lit-edge-*.json
 | [`docs/PHASE_1_COMPLETE.md`](docs/PHASE_1_COMPLETE.md) | Phase 1 — performance baselines |
 | [`docs/PHASE_2_COMPLETE.md`](docs/PHASE_2_COMPLETE.md) | Phase 2 — core rendering engine |
 | [`docs/PHASE_3_COMPLETE.md`](docs/PHASE_3_COMPLETE.md) | Phase 3 — hydration support |
+| [`docs/PHASE_4_COMPLETE.md`](docs/PHASE_4_COMPLETE.md) | Phase 4 — component support |
 | [`docs/insight/`](docs/insight/) | Deep research on Lit internals and edge runtimes |
 
 ## External references

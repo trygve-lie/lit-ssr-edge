@@ -39,5 +39,8 @@ export { openTemplatePart, openPart, closePart, nodeMarker } from './lib/markers
 // Template type detection utility
 export { isHydratable } from './lib/server-template.js';
 
+// DOM shim (for runtimes without browser DOM globals)
+export { installGlobalDomShim } from './lib/dom-shim.js';
+
 // Re-export lit-html primitives for convenience
 export { html, svg, noChange, nothing } from 'lit-html';
