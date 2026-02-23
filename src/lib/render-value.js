@@ -45,6 +45,7 @@ import {
 } from '@parse5/tools';
 import { isHydratable } from './server-template.js';
 import { reflectedAttributeName } from './reflected-attributes.js';
+import { validateDirectiveSupport } from './directives-validation.js';
 
 /**
  * Patches a DirectiveResult's Directive class to call `render()` instead of
@@ -55,12 +56,16 @@ function ssrResolve(_part, values) {
 }
 
 /**
- * Checks if a value is a DirectiveResult and patches its Directive class for
- * SSR-compatible rendering.
+ * Checks if a value is a DirectiveResult, validates it is SSR-compatible,
+ * and patches its Directive class to call render() instead of update().
+ *
+ * Throws a descriptive error for known client-only directives (cache, live,
+ * until, asyncAppend, asyncReplace, ref, templateContent).
  */
 const patchIfDirective = (value) => {
   const directiveCtor = getDirectiveClass(value);
   if (directiveCtor !== undefined) {
+    validateDirectiveSupport(directiveCtor);
     patchDirectiveResolve(directiveCtor, ssrResolve);
   }
   return value;
