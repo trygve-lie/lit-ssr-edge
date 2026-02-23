@@ -1,7 +1,7 @@
 {
-  "name": "lit-edge-fastly-compute-example",
+  "name": "lit-ssr-edge-fastly-compute-example",
   "version": "1.0.0",
-  "description": "Example: lit-edge SSR on Fastly Compute (SpiderMonkey + WASM)",
+  "description": "Example: lit-ssr-edge SSR on Fastly Compute (SpiderMonkey + WASM)",
   "type": "module",
   "private": true,
   "main": "src/index.js",
@@ -17,7 +17,7 @@
   "dependencies": {
     "@fastly/js-compute": "^3.33.2",
     "lit": "^3.0.0",
-    "lit-edge": "file:../.."
+    "lit-ssr-edge": "file:../.."
   },
   "devDependencies": {
     "esbuild": "^0.21.0"

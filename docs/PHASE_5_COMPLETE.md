@@ -2,7 +2,7 @@
 
 **Status:** ✅ Complete
 **Date:** February 23, 2026
-**Implementation:** lit-edge v1.0.0
+**Implementation:** lit-ssr-edge v1.0.0
 **Node Version:** v24.13.0
 **Platform:** Linux x64
 
@@ -10,7 +10,7 @@
 
 ## Overview
 
-Phase 5 formalised directive support in lit-edge. The underlying directive patching mechanism (`patchIfDirective`, `resolveDirective`, `patchDirectiveResolve`) was already in place from Phase 2, and all 21 directive baseline tests were already passing. Phase 5 delivered:
+Phase 5 formalised directive support in lit-ssr-edge. The underlying directive patching mechanism (`patchIfDirective`, `resolveDirective`, `patchDirectiveResolve`) was already in place from Phase 2, and all 21 directive baseline tests were already passing. Phase 5 delivered:
 
 - A curated public directive module (`src/directives/index.js`) exporting all SSR-safe directives
 - A validation module (`src/lib/directives-validation.js`) that throws clear, informative errors when client-only directives are used during SSR
@@ -28,7 +28,7 @@ Phase 5 formalised directive support in lit-edge. The underlying directive patch
 A curated entry point that re-exports all SSR-compatible directives. Users can import from here instead of individual `lit/directives/*` paths to get an SSR-safe, well-documented set:
 
 ```js
-import { repeat, when, classMap, unsafeHTML } from 'lit-edge/directives/index.js';
+import { repeat, when, classMap, unsafeHTML } from 'lit-ssr-edge/directives/index.js';
 ```
 
 **Exported directives:**
@@ -197,7 +197,7 @@ Key scenarios:
 node --test test/integration/directives/*.test.js
 
 # All tests
-TEST_IMPL=lit-edge node --test test/integration/baseline/**/*.test.js
+TEST_IMPL=lit-ssr-edge node --test test/integration/baseline/**/*.test.js
 node --test test/unit/*.test.js test/integration/hydration/*.test.js
 node --test test/integration/components/*.test.js
 node --test test/integration/directives/*.test.js
@@ -230,6 +230,6 @@ From the architecture document:
 
 ## Conclusion
 
-Phase 5 delivered a complete, well-documented directive system for lit-edge. The 11 fully-supported directives, 3 partially-supported directives, and clear error handling for 6 client-only directives give users a predictable, safe SSR directive API. All 291 cumulative tests pass.
+Phase 5 delivered a complete, well-documented directive system for lit-ssr-edge. The 11 fully-supported directives, 3 partially-supported directives, and clear error handling for 6 client-only directives give users a predictable, safe SSR directive API. All 291 cumulative tests pass.
 
 **Phase 5 Complete. Ready for Phase 6: Optimisation & Polish.**

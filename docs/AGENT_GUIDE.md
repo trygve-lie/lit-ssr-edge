@@ -1,4 +1,4 @@
-# Agent Guide: Working with lit-edge
+# Agent Guide: Working with lit-ssr-edge
 
 **Purpose:** Help AI agents efficiently navigate this codebase and documentation.
 
@@ -20,7 +20,7 @@
 
 **3. Optimize performance** → Start with:
    - Read `/docs/PHASE_1_COMPLETE.md` (performance targets)
-   - Run benchmarks: `npm run perf:lit-edge`
+   - Run benchmarks: `npm run perf:lit-ssr-edge`
    - Profile: `node --inspect test/performance/...`
 
 **4. Understand Lit internals** → Start with:
@@ -58,7 +58,7 @@
 
 **`docs/PHASE_1_COMPLETE.md`**
 - Performance baselines
-- Targets for lit-edge
+- Targets for lit-ssr-edge
 - Benchmark results
 
 **`docs/STRATEGY_TESTING.md`**
@@ -165,7 +165,7 @@ Glob({ pattern: "test/**/*component*.test.js" })
 ### Task: Optimize Performance
 
 1. **Check targets:** `/docs/PHASE_1_COMPLETE.md`
-2. **Benchmark current:** `npm run perf:lit-edge`
+2. **Benchmark current:** `npm run perf:lit-ssr-edge`
 3. **Compare:** `npm run perf:compare baseline.json current.json`
 4. **Profile:** `node --inspect test/performance/render-performance.js`
 5. **Optimize hot paths**
@@ -181,11 +181,11 @@ Glob({ pattern: "test/**/*component*.test.js" })
 # Run all baseline tests against @lit-labs/ssr
 npm run test:baseline
 
-# Run all tests against lit-edge (once implemented)
-npm run test:lit-edge
+# Run all tests against lit-ssr-edge (once implemented)
+npm run test:lit-ssr-edge
 
 # Run performance benchmarks
-npm run perf:lit-edge
+npm run perf:lit-ssr-edge
 
 # Compare performance
 npm run perf:compare baseline.json current.json
@@ -288,7 +288,7 @@ Buffer
 # Generate reference output
 echo 'console.log(result)' | node
 
-# Compare to lit-edge output
+# Compare to lit-ssr-edge output
 npm run test:baseline
 ```
 
@@ -297,7 +297,7 @@ npm run test:baseline
 **Always check:** Am I meeting performance targets?
 
 ```bash
-npm run perf:lit-edge
+npm run perf:lit-ssr-edge
 npm run perf:compare baseline.json current.json
 ```
 

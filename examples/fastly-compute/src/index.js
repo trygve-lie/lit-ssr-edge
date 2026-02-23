@@ -1,6 +1,6 @@
 /// <reference types="@fastly/js-compute" />
 /**
- * Fastly Compute — lit-edge SSR entry point.
+ * Fastly Compute — lit-ssr-edge SSR entry point.
  *
  * Fastly Compute runs JavaScript inside a SpiderMonkey-based WASM runtime.
  * The build pipeline bundles this ESM file with esbuild, then compiles the
@@ -19,11 +19,11 @@
 
 // 1. Install the DOM shim FIRST — before any Lit imports or component imports.
 //    This sets up globalThis.HTMLElement, globalThis.customElements, etc.
-import 'lit-edge/install-global-dom-shim.js';
+import 'lit-ssr-edge/install-global-dom-shim.js';
 
-// 2. Import lit-edge rendering utilities.
-import { render, RenderResultReadable } from 'lit-edge';
-import { html as serverHtml } from 'lit-edge/server-template.js';
+// 2. Import lit-ssr-edge rendering utilities.
+import { render, RenderResultReadable } from 'lit-ssr-edge';
+import { html as serverHtml } from 'lit-ssr-edge/server-template.js';
 import { html } from 'lit';
 
 // 3. Import components. esbuild inlines them at build time — no runtime
@@ -63,7 +63,7 @@ async function handleRequest(event) {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>lit-edge on Fastly Compute</title>
+    <title>lit-ssr-edge on Fastly Compute</title>
     <!--
       In production, include the @lit-labs/ssr-client hydration script and
       your bundled client-side components here so the component can be

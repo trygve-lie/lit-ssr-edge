@@ -21,13 +21,13 @@ npm run perf
 
 This runs the complete benchmark suite against `@lit-labs/ssr` and saves results to a timestamped JSON file.
 
-### Benchmark lit-edge
+### Benchmark lit-ssr-edge
 
 ```bash
-npm run perf:lit-edge
+npm run perf:lit-ssr-edge
 ```
 
-Runs benchmarks against lit-edge implementation (once implemented).
+Runs benchmarks against lit-ssr-edge implementation (once implemented).
 
 ### Memory Profiling
 
@@ -41,15 +41,15 @@ Profiles memory usage for `@lit-labs/ssr`:
 - Per-operation memory allocation
 
 ```bash
-npm run perf:memory:lit-edge
+npm run perf:memory:lit-ssr-edge
 ```
 
-Profiles memory usage for lit-edge.
+Profiles memory usage for lit-ssr-edge.
 
 ### Comparing Results
 
 ```bash
-npm run perf:compare benchmark-lit-ssr-1234.json benchmark-lit-edge-5678.json
+npm run perf:compare benchmark-lit-ssr-1234.json benchmark-lit-ssr-edge-5678.json
 ```
 
 Compares two benchmark result files and shows:
@@ -194,7 +194,7 @@ Per op:  Heap Used: 0.00027 MB, RSS: 0.00018 MB
 
 ### Performance Goals
 
-Based on testing, lit-edge should target:
+Based on testing, lit-ssr-edge should target:
 
 - **2x or better**: Acceptable (within same order of magnitude)
 - **1x to 1.5x**: Good (competitive)
@@ -218,18 +218,18 @@ Based on testing, lit-edge should target:
 
 2. **Implement feature** (Phase 2+):
    ```bash
-   # Implement lit-edge code
+   # Implement lit-ssr-edge code
    ```
 
 3. **Benchmark implementation**:
    ```bash
-   npm run perf:lit-edge
-   # Creates: benchmark-lit-edge-1234.json
+   npm run perf:lit-ssr-edge
+   # Creates: benchmark-lit-ssr-edge-1234.json
    ```
 
 4. **Compare results**:
    ```bash
-   npm run perf:compare benchmark-lit-ssr-baseline.json benchmark-lit-edge-1234.json
+   npm run perf:compare benchmark-lit-ssr-baseline.json benchmark-lit-ssr-edge-1234.json
    ```
 
 5. **Optimize if needed**:
@@ -258,8 +258,8 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
-      - run: npm run perf:lit-edge
-      - run: npm run perf:compare baseline.json benchmark-lit-edge-*.json
+      - run: npm run perf:lit-ssr-edge
+      - run: npm run perf:compare baseline.json benchmark-lit-ssr-edge-*.json
 ```
 
 ## Advanced Profiling

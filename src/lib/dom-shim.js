@@ -1,5 +1,5 @@
 /**
- * Minimal DOM shim for lit-edge.
+ * Minimal DOM shim for lit-ssr-edge.
  *
  * Provides the minimal set of browser DOM APIs needed to instantiate and
  * render LitElement components during server-side rendering. Wraps

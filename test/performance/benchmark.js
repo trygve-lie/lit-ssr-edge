@@ -160,7 +160,7 @@ export async function saveResults(results, filename) {
 
   const output = {
     timestamp: new Date().toISOString(),
-    implementation: process.env.TEST_IMPL || 'lit-edge',
+    implementation: process.env.TEST_IMPL || 'lit-ssr-edge',
     nodeVersion: process.version,
     platform: process.platform,
     arch: process.arch,

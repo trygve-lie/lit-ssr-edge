@@ -19,7 +19,7 @@ try {
   const ssr = await import('@lit-labs/ssr');
   serverHtml = ssr.html;
 } catch (e) {
-  // Will be available once lit-edge implements it
+  // Will be available once lit-ssr-edge implements it
   serverHtml = null;
 }
 
@@ -28,7 +28,7 @@ describe('Server-Only Templates - Basic', () => {
 
   test('server-only template omits hydration markers', async () => {
     if (!serverHtml) {
-      // Skip until lit-edge implements server-only templates
+      // Skip until lit-ssr-edge implements server-only templates
       return assert.ok(true, 'Server-only templates not yet implemented');
     }
 

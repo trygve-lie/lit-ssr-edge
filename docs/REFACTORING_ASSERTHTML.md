@@ -174,12 +174,12 @@ assertHTMLEqual(stripped, '<div class=" active has-error ">Content</div>');
 1. **Full Output Validation**: Tests now verify complete HTML output, not just fragments
 2. **Better Error Messages**: When tests fail, see full expected vs actual comparison
 3. **Strategy Compliance**: Perfectly aligned with STRATEGY_TESTING.md requirements
-4. **Future-Proof**: When implementing lit-edge, these tests will catch any output differences
+4. **Future-Proof**: When implementing lit-ssr-edge, these tests will catch any output differences
 5. **Documented Quirks**: Test expectations now document @lit-labs/ssr output behavior
 
-## Implementation Guidelines for lit-edge
+## Implementation Guidelines for lit-ssr-edge
 
-When implementing lit-edge, the tests document expected behavior:
+When implementing lit-ssr-edge, the tests document expected behavior:
 
 1. **Preserve self-closing syntax**: `<input />` not `<input>`
 2. **Handle attribute spacing**: Match @lit-labs/ssr's trailing/leading spaces
@@ -197,4 +197,4 @@ The refactoring successfully transformed all baseline tests from partial matchin
 - ✅ Documentation of @lit-labs/ssr output quirks
 - ✅ All 122 tests passing
 
-The test suite is now ready to serve as the baseline for lit-edge implementation.
+The test suite is now ready to serve as the baseline for lit-ssr-edge implementation.

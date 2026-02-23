@@ -1,5 +1,5 @@
 /**
- * Template digest calculation for lit-edge.
+ * Template digest calculation for lit-ssr-edge.
  *
  * Implements the DJB2-based hash used by @lit-labs/ssr-client to create
  * template identifiers embedded in hydration markers. Our implementation

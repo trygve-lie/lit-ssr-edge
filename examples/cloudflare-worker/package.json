@@ -1,7 +1,7 @@
 {
-  "name": "lit-edge-cloudflare-worker-example",
+  "name": "lit-ssr-edge-cloudflare-worker-example",
   "version": "1.0.0",
-  "description": "Example: lit-edge SSR on Cloudflare Workers (no nodejs_compat required)",
+  "description": "Example: lit-ssr-edge SSR on Cloudflare Workers (no nodejs_compat required)",
   "type": "module",
   "private": true,
   "scripts": {
@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "lit": "^3.0.0",
-    "lit-edge": "file:../.."
+    "lit-ssr-edge": "file:../.."
   },
   "devDependencies": {
     "esbuild": "^0.21.0",

@@ -1,6 +1,6 @@
 # Lit SSR Hydration System
 
-This document provides comprehensive analysis of Lit's hydration system, focusing on how server-rendered output reconnects with client-side JavaScript for reactivity. This knowledge is critical for ensuring lit-edge generates output compatible with Lit's official `@lit-labs/ssr-client` hydration code.
+This document provides comprehensive analysis of Lit's hydration system, focusing on how server-rendered output reconnects with client-side JavaScript for reactivity. This knowledge is critical for ensuring lit-ssr-edge generates output compatible with Lit's official `@lit-labs/ssr-client` hydration code.
 
 ## Table of Contents
 
@@ -10,7 +10,7 @@ This document provides comprehensive analysis of Lit's hydration system, focusin
 4. [Client-Side Hydration Process](#client-side-hydration-process)
 5. [LitElement Hydration](#litelement-hydration)
 6. [Declarative Shadow DOM](#declarative-shadow-dom)
-7. [Requirements for lit-edge](#requirements-for-lit-edge)
+7. [Requirements for lit-ssr-edge](#requirements-for-lit-ssr-edge)
 8. [Hydration Example Flow](#hydration-example-flow)
 
 ---
@@ -576,9 +576,9 @@ if (!HTMLTemplateElement.prototype.hasOwnProperty('shadowRoot')) {
 
 ---
 
-## Requirements for lit-edge
+## Requirements for lit-ssr-edge
 
-To ensure our lit-edge implementation is compatible with Lit's official client-side hydration, we must:
+To ensure our lit-ssr-edge implementation is compatible with Lit's official client-side hydration, we must:
 
 ### 1. Generate Correct Markers
 
@@ -740,13 +740,13 @@ Slots must be present in shadow DOM for browser distribution.
 
 ## Hydration Example Flow
 
-### Server-Side (lit-edge generates this)
+### Server-Side (lit-ssr-edge generates this)
 
 ```javascript
 // Server template
 const template = html`<div class=${className}>${content}</div>`;
 
-// lit-edge renders to:
+// lit-ssr-edge renders to:
 ```
 
 ```html
@@ -851,7 +851,7 @@ render(html`<div class="updated">New content</div>`, document.body);
 
 ## Summary
 
-### Critical Hydration Requirements for lit-edge
+### Critical Hydration Requirements for lit-ssr-edge
 
 1. ✅ **Generate hydration markers** - `lit-part`, `lit-node`, `/lit-part`
 2. ✅ **Calculate template digests** - DJB2 hash with exact algorithm
@@ -864,7 +864,7 @@ render(html`<div class="updated">New content</div>`, document.body);
 
 ### Compatibility Promise
 
-If lit-edge generates output matching these requirements, then:
+If lit-ssr-edge generates output matching these requirements, then:
 
 - ✅ `@lit-labs/ssr-client` hydration works without modification
 - ✅ LitElement components hydrate automatically
@@ -877,7 +877,7 @@ If lit-edge generates output matching these requirements, then:
 To verify hydration compatibility:
 
 ```javascript
-// 1. Render with lit-edge (server)
+// 1. Render with lit-ssr-edge (server)
 const ssrOutput = await renderToString(template);
 
 // 2. Load in browser with client script

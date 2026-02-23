@@ -2,7 +2,7 @@
 
 **Status:** ✅ Complete
 **Date:** February 23, 2026
-**Implementation:** lit-edge v1.0.0
+**Implementation:** lit-ssr-edge v1.0.0
 **Node Version:** v24.13.0
 **Platform:** Linux x64
 
@@ -10,7 +10,7 @@
 
 ## Overview
 
-Phase 4 formalised component support in lit-edge. The core rendering of LitElement components had been working since Phase 2, but Phase 4 delivered the architectural pieces that make the implementation stand on its own:
+Phase 4 formalised component support in lit-ssr-edge. The core rendering of LitElement components had been working since Phase 2, but Phase 4 delivered the architectural pieces that make the implementation stand on its own:
 
 - A proper DOM shim module (`src/lib/dom-shim.js`) backed by `@lit-labs/ssr-dom-shim`
 - A public side-effect entry point (`src/install-global-dom-shim.js`) for edge runtimes
@@ -48,8 +48,8 @@ A side-effect-only module that calls `installGlobalDomShim()` on import. Users w
 
 ```js
 // worker.js
-import 'lit-edge/install-global-dom-shim.js';
-import { render, RenderResultReadable } from 'lit-edge';
+import 'lit-ssr-edge/install-global-dom-shim.js';
+import { render, RenderResultReadable } from 'lit-ssr-edge';
 import './my-components-bundle.js';
 import { html } from 'lit';
 
@@ -76,7 +76,7 @@ export default {
 | Bun | ✅ Yes | No DOM globals by default |
 | Browser | ❌ No | Native DOM APIs already present |
 
-**Note:** In practice, when users import `lit` (or `lit-element`) in Node.js, `@lit-labs/ssr-dom-shim` is installed as a transitive side effect of `lit-element`. For edge runtimes where `lit` is not pre-loaded, users must import `lit-edge/install-global-dom-shim.js` explicitly.
+**Note:** In practice, when users import `lit` (or `lit-element`) in Node.js, `@lit-labs/ssr-dom-shim` is installed as a transitive side effect of `lit-element`. For edge runtimes where `lit` is not pre-loaded, users must import `lit-ssr-edge/install-global-dom-shim.js` explicitly.
 
 ---
 
@@ -247,7 +247,7 @@ The `attachInternals()` method is provided by `@lit-labs/ssr-dom-shim`'s Element
 node --test test/integration/components/*.test.js
 
 # Full test suite
-TEST_IMPL=lit-edge node --test test/integration/baseline/**/*.test.js
+TEST_IMPL=lit-ssr-edge node --test test/integration/baseline/**/*.test.js
 node --test test/unit/*.test.js test/integration/hydration/*.test.js
 node --test test/integration/components/*.test.js
 ```
@@ -277,7 +277,7 @@ All 21 directive baseline tests pass. Phase 5 should:
 - Write a dedicated directive test suite (`test/integration/directives/`)
 - Formally validate each supported directive: `repeat`, `map`, `join`, `range`, `when`, `choose`, `ifDefined`, `guard`, `classMap`, `styleMap`, `keyed`, `unsafeHTML`
 - Add clear errors for unsupported client-only directives (`cache`, `live`, `until`, `ref`, etc.)
-- Export directive utilities from the main `lit-edge` entry point
+- Export directive utilities from the main `lit-ssr-edge` entry point
 
 ### Phase 6: Optimisation & Polish
 
@@ -290,6 +290,6 @@ All 21 directive baseline tests pass. Phase 5 should:
 
 ## Conclusion
 
-Phase 4 formally delivered the DOM shim infrastructure that makes lit-edge self-contained on edge runtimes, upgraded `LitElementRenderer` with full ElementInternals/ARIA support, and added a 53-test component suite covering the complete component rendering surface. All 226 tests across all phases pass.
+Phase 4 formally delivered the DOM shim infrastructure that makes lit-ssr-edge self-contained on edge runtimes, upgraded `LitElementRenderer` with full ElementInternals/ARIA support, and added a 53-test component suite covering the complete component rendering surface. All 226 tests across all phases pass.
 
 **Phase 4 Complete. Ready for Phase 5: Directive Support.**

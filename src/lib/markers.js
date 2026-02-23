@@ -1,5 +1,5 @@
 /**
- * Hydration marker generation for lit-edge.
+ * Hydration marker generation for lit-ssr-edge.
  *
  * Generates the HTML comment markers that lit-html uses to locate and update
  * dynamic parts of server-rendered HTML during client-side hydration.

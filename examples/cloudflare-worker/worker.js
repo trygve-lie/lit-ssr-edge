@@ -1,7 +1,7 @@
 /**
- * Cloudflare Worker — lit-edge SSR example.
+ * Cloudflare Worker — lit-ssr-edge SSR example.
  *
- * Demonstrates how to use lit-edge to server-side render Lit web components
+ * Demonstrates how to use lit-ssr-edge to server-side render Lit web components
  * on Cloudflare Workers WITHOUT the nodejs_compat flag.
  *
  * Setup:
@@ -15,11 +15,11 @@
 
 // 1. Install the DOM shim FIRST — before any Lit imports or component imports.
 //    This sets up globalThis.HTMLElement, globalThis.customElements, etc.
-import 'lit-edge/install-global-dom-shim.js';
+import 'lit-ssr-edge/install-global-dom-shim.js';
 
-// 2. Import lit-edge rendering utilities.
-import { render, RenderResultReadable } from 'lit-edge';
-import { html as serverHtml } from 'lit-edge/server-template.js';
+// 2. Import lit-ssr-edge rendering utilities.
+import { render, RenderResultReadable } from 'lit-ssr-edge';
+import { html as serverHtml } from 'lit-ssr-edge/server-template.js';
 import { html } from 'lit';
 
 // 3. Import components. In a real project these would be pre-bundled into the
@@ -42,7 +42,7 @@ function renderPage(request) {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>lit-edge on Cloudflare Workers</title>
+    <title>lit-ssr-edge on Cloudflare Workers</title>
     <!--
       In production, include the @lit-labs/ssr-client hydration script
       and your bundled client-side components here.

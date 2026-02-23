@@ -67,7 +67,7 @@ This document summarizes the changes made to align Phase 0 baseline integration 
 4. ✅ `components.test.js` - 19 tests
 5. ✅ `shadow-dom.test.js` - 11 tests
 6. ✅ `edge-cases.test.js` - 16 tests
-7. ✅ `server-only-templates.test.js` - 11 tests (8 skip until lit-edge implements)
+7. ✅ `server-only-templates.test.js` - 11 tests (8 skip until lit-ssr-edge implements)
 
 ### Helper Files (4 total):
 1. ✅ `renderer.js` - Renderer abstraction layer
@@ -154,4 +154,4 @@ Phase 0 has been significantly improved to align with the testing strategy:
 - Assertion patterns (need to replace `.includes()` with `assertHTMLEqual()`)
 - Fixture loading (need to use `loadFixture()` helper)
 
-The current implementation provides a solid baseline for testing lit-edge development. Tests can be further refined to match strategy best practices as development progresses.
+The current implementation provides a solid baseline for testing lit-ssr-edge development. Tests can be further refined to match strategy best practices as development progresses.

@@ -12,7 +12,7 @@ This document provides comprehensive research on WinterTC (formerly WinterCG), e
 6. [Security and Sandbox Constraints](#security-and-sandbox-constraints)
 7. [ESM Module Support](#esm-module-support)
 8. [Limitations Compared to Node.js](#limitations-compared-to-nodejs)
-9. [APIs for Lit Edge Renderer](#apis-for-lit-edge-renderer)
+9. [APIs for Lit Edge Renderer](#apis-for-lit-ssr-edge-renderer)
 
 ---
 
@@ -292,7 +292,7 @@ controller.abort();
 
 ### Overview
 
-Modern Node.js (18+) implements the WinterTC Minimum Common Web Platform API, making it a first-class target for lit-edge alongside edge runtimes.
+Modern Node.js (18+) implements the WinterTC Minimum Common Web Platform API, making it a first-class target for lit-ssr-edge alongside edge runtimes.
 
 ### Runtime Architecture
 
@@ -330,11 +330,11 @@ Node.js 18+ includes native implementations of Web Platform APIs:
 - WinterTC-compliant
 - **Can run the same code as edge workers**
 
-### lit-edge on Node.js
+### lit-ssr-edge on Node.js
 
 ```javascript
 // Same code runs on Node.js, Cloudflare, Fastly
-import { render, RenderResultReadable } from 'lit-edge';
+import { render, RenderResultReadable } from 'lit-ssr-edge';
 import { html } from 'lit';
 import { createServer } from 'http'; // Node.js-specific server
 
@@ -373,7 +373,7 @@ server.listen(3000);
 | Execution time | ❌ No limit | ✅ 10ms-30s |
 | V8 isolates | ❌ Single process | ✅ Per request |
 
-**For lit-edge:** We use only the **shared subset** (Web Platform APIs), so the same code runs everywhere.
+**For lit-ssr-edge:** We use only the **shared subset** (Web Platform APIs), so the same code runs everywhere.
 
 ---
 
@@ -383,11 +383,11 @@ server.listen(3000);
 
 Cloudflare Workers is built on the V8 JavaScript engine (same as Chrome) and runs code in V8 isolates. The runtime is updated at least weekly to match Chrome's stable V8 version.
 
-### No nodejs_compat Required for lit-edge
+### No nodejs_compat Required for lit-ssr-edge
 
-lit-edge runs on Cloudflare Workers **without** the `nodejs_compat` compatibility flag.
+lit-ssr-edge runs on Cloudflare Workers **without** the `nodejs_compat` compatibility flag.
 
-**Why lit-edge doesn't need nodejs_compat:**
+**Why lit-ssr-edge doesn't need nodejs_compat:**
 - Uses only Web Platform APIs (WinterTC Minimum Common API)
 - No Node.js-specific imports:
   - ❌ No `node:stream`
@@ -408,7 +408,7 @@ name = "my-lit-app"
 main = "dist/worker.js"
 compatibility_date = "2024-01-01"
 
-# ✅ lit-edge works without this!
+# ✅ lit-ssr-edge works without this!
 # compatibility_flags = ["nodejs_compat"]
 ```
 

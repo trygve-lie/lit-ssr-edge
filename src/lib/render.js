@@ -1,5 +1,5 @@
 /**
- * Core render function for lit-edge.
+ * Core render function for lit-ssr-edge.
  *
  * Renders a lit-html template (or any renderable value) to a RenderResult
  * iterable of strings and thunks. Compatible with @lit-labs/ssr output.

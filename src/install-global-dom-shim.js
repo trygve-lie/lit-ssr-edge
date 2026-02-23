@@ -17,8 +17,8 @@
  * @example
  * ```js
  * // worker.js (Cloudflare Workers entry point)
- * import 'lit-edge/install-global-dom-shim.js';
- * import { render, RenderResultReadable } from 'lit-edge';
+ * import 'lit-ssr-edge/install-global-dom-shim.js';
+ * import { render, RenderResultReadable } from 'lit-ssr-edge';
  * import './my-components-bundle.js';  // registers custom elements
  * import { html } from 'lit';
  *

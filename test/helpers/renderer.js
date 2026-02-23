@@ -1,8 +1,8 @@
 /**
- * Renderer abstraction layer for testing both @lit-labs/ssr and lit-edge
+ * Renderer abstraction layer for testing both @lit-labs/ssr and lit-ssr-edge
  *
  * This allows the same tests to run against both implementations to verify
- * that lit-edge produces identical output to @lit-labs/ssr.
+ * that lit-ssr-edge produces identical output to @lit-labs/ssr.
  *
  * Usage:
  *   const renderer = createRenderer(); // Uses TEST_IMPL env var
@@ -78,7 +78,7 @@ class LitSSRRenderer extends Renderer {
 }
 
 /**
- * Renderer implementation using lit-edge (our implementation)
+ * Renderer implementation using lit-ssr-edge (our implementation)
  */
 class LitEdgeRenderer extends Renderer {
   async renderToString(template, options = {}) {
@@ -91,11 +91,11 @@ class LitEdgeRenderer extends Renderer {
 
   renderToStream(template, options = {}) {
     // Will use Web Streams ReadableStream
-    throw new Error('Stream rendering for lit-edge not yet implemented');
+    throw new Error('Stream rendering for lit-ssr-edge not yet implemented');
   }
 
   registerComponents(components) {
-    // lit-edge component registration (uses global customElements for now)
+    // lit-ssr-edge component registration (uses global customElements for now)
     for (const [name, ctor] of components) {
       if (!customElements.get(name)) {
         customElements.define(name, ctor);
@@ -106,13 +106,13 @@ class LitEdgeRenderer extends Renderer {
 
 /**
  * Create a renderer instance based on environment or explicit choice
- * @param {string} implementation - 'lit-ssr' or 'lit-edge' (defaults to TEST_IMPL env var)
+ * @param {string} implementation - 'lit-ssr' or 'lit-ssr-edge' (defaults to TEST_IMPL env var)
  * @returns {Renderer}
  */
-export function createRenderer(implementation = process.env.TEST_IMPL || 'lit-edge') {
+export function createRenderer(implementation = process.env.TEST_IMPL || 'lit-ssr-edge') {
   if (implementation === 'lit-ssr') {
     return new LitSSRRenderer();
-  } else if (implementation === 'lit-edge') {
+  } else if (implementation === 'lit-ssr-edge') {
     return new LitEdgeRenderer();
   } else {
     throw new Error(`Unknown renderer implementation: ${implementation}`);

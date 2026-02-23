@@ -1,15 +1,15 @@
-# lit-edge — Fastly Compute example
+# lit-ssr-edge — Fastly Compute example
 
-Server-side renders Lit web components on [Fastly Compute](https://www.fastly.com/products/edge-compute) using lit-edge.
+Server-side renders Lit web components on [Fastly Compute](https://www.fastly.com/products/edge-compute) using lit-ssr-edge.
 
-Fastly Compute runs JavaScript inside a **SpiderMonkey-based WebAssembly runtime**, which implements the WinterTC Minimum Common Web Platform API. lit-edge uses only those APIs, so no polyfills or compatibility layers are required.
+Fastly Compute runs JavaScript inside a **SpiderMonkey-based WebAssembly runtime**, which implements the WinterTC Minimum Common Web Platform API. lit-ssr-edge uses only those APIs, so no polyfills or compatibility layers are required.
 
 ## How it works
 
 ```
 src/index.js                     (entry point — ESM)
   │
-  ├─ import 'lit-edge/install-global-dom-shim.js'   → sets up HTMLElement, customElements
+  ├─ import 'lit-ssr-edge/install-global-dom-shim.js'   → sets up HTMLElement, customElements
   ├─ import '../components/my-edge.js'               → registers <my-edge>
   │
   └─ addEventListener('fetch', event => {
@@ -50,7 +50,7 @@ npm run deploy         # build + publish to your Fastly service
 | **Binding globals** | `env` parameter | `fastly:env` module import |
 
 The **rendering code is identical** — both platforms receive a `Request` and
-return a `Response` with a `ReadableStream` body, so the same lit-edge code
+return a `Response` with a `ReadableStream` body, so the same lit-ssr-edge code
 works on both without modification.
 
 ## Build pipeline
@@ -73,7 +73,7 @@ imports or runtime module resolution happen inside the WASM binary.
 ## Streaming
 
 Fastly Compute's SpiderMonkey runtime supports `ReadableStream` natively.
-lit-edge's `RenderResultReadable.getStream()` returns a
+lit-ssr-edge's `RenderResultReadable.getStream()` returns a
 `ReadableStream<Uint8Array>` which is passed directly to the `Response`
 constructor — no conversion or intermediate buffering needed.
 
@@ -110,7 +110,7 @@ To hydrate components on the client, add to your HTML head:
 ```
 
 The `defer-hydration` attribute on nested components and the `<!--lit-part-->`
-markers emitted by lit-edge are compatible with `@lit-labs/ssr-client`'s
+markers emitted by lit-ssr-edge are compatible with `@lit-labs/ssr-client`'s
 hydration algorithm.
 
 ## Sources

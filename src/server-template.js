@@ -1,5 +1,5 @@
 /**
- * Server-only template API for lit-edge.
+ * Server-only template API for lit-ssr-edge.
  *
  * Server-only templates do not generate hydration markers, supporting full
  * document rendering (<!DOCTYPE html>, <html>, <head>, <body>) and can render
@@ -11,8 +11,8 @@
  *
  * @example
  * ```js
- * import { render, collectResult } from 'lit-edge';
- * import { html as serverHtml } from 'lit-edge/server-template.js';
+ * import { render, collectResult } from 'lit-ssr-edge';
+ * import { html as serverHtml } from 'lit-ssr-edge/server-template.js';
  * import { html } from 'lit';
  *
  * const page = serverHtml`

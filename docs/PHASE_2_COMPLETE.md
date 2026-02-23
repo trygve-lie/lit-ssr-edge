@@ -2,7 +2,7 @@
 
 **Status:** ✅ Complete
 **Date:** February 23, 2026
-**Implementation:** lit-edge v1.0.0
+**Implementation:** lit-ssr-edge v1.0.0
 **Node Version:** v24.13.0
 **Platform:** Linux x64
 
@@ -10,7 +10,7 @@
 
 ## Overview
 
-Phase 2 implemented the core rendering engine for lit-edge. Starting from zero source files, this phase produced a complete SSR renderer that passes all 122 baseline integration tests with output byte-for-byte compatible with `@lit-labs/ssr` (after normalization). The implementation uses only Web Platform APIs — no Node.js-specific dependencies.
+Phase 2 implemented the core rendering engine for lit-ssr-edge. Starting from zero source files, this phase produced a complete SSR renderer that passes all 122 baseline integration tests with output byte-for-byte compatible with `@lit-labs/ssr` (after normalization). The implementation uses only Web Platform APIs — no Node.js-specific dependencies.
 
 ---
 
@@ -96,7 +96,7 @@ Replaces `@lit-labs/ssr`'s `RenderResultReadable` which extends Node's `stream.R
 
 **Example usage on edge runtimes:**
 ```js
-import { render, RenderResultReadable } from 'lit-edge';
+import { render, RenderResultReadable } from 'lit-ssr-edge';
 import { html } from 'lit';
 
 const result = render(html`<div>Hello</div>`);
@@ -180,7 +180,7 @@ Both are pure JavaScript packages with no Node.js-specific dependencies, compati
 
 ## Test Results
 
-All 122 baseline integration tests pass with `TEST_IMPL=lit-edge`:
+All 122 baseline integration tests pass with `TEST_IMPL=lit-ssr-edge`:
 
 ```
 ℹ tests 122
@@ -224,17 +224,17 @@ Additionally, all 11 server-only template tests pass:
 ## How to Run Tests
 
 ```bash
-# Run all baseline tests against lit-edge
-TEST_IMPL=lit-edge node --test test/integration/baseline/**/*.test.js
+# Run all baseline tests against lit-ssr-edge
+TEST_IMPL=lit-ssr-edge node --test test/integration/baseline/**/*.test.js
 
 # Run against @lit-labs/ssr (reference implementation)
 TEST_IMPL=lit-ssr node --test test/integration/baseline/**/*.test.js
 
 # Run performance benchmarks
-npm run perf:lit-edge
+npm run perf:lit-ssr-edge
 
 # Compare with @lit-labs/ssr baseline
-npm run perf:compare benchmark-lit-ssr-*.json benchmark-lit-edge-*.json
+npm run perf:compare benchmark-lit-ssr-*.json benchmark-lit-ssr-edge-*.json
 ```
 
 ---

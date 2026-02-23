@@ -27,7 +27,7 @@ async function runBenchmarks() {
   const results = [];
 
   console.log('\n🚀 Starting render performance benchmarks...\n');
-  console.log(`Implementation: ${process.env.TEST_IMPL || 'lit-edge'}`);
+  console.log(`Implementation: ${process.env.TEST_IMPL || 'lit-ssr-edge'}`);
   console.log(`Node version: ${process.version}`);
   console.log(`Platform: ${process.platform} ${process.arch}\n`);
 
@@ -345,7 +345,7 @@ async function runBenchmarks() {
   // Print and save results
   printResults(results);
 
-  const implementation = process.env.TEST_IMPL || 'lit-edge';
+  const implementation = process.env.TEST_IMPL || 'lit-ssr-edge';
   const filename = `benchmark-${implementation}-${Date.now()}.json`;
   await saveResults(results, filename);
 

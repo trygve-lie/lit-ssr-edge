@@ -2,7 +2,7 @@
 
 **Status:** ✅ Complete
 **Date:** February 23, 2026
-**Implementation:** lit-edge v1.0.0
+**Implementation:** lit-ssr-edge v1.0.0
 **Node Version:** v24.13.0
 **Platform:** Linux x64
 
@@ -10,12 +10,12 @@
 
 ## Overview
 
-Phase 6 delivered the final optimisation and documentation pass for lit-edge:
+Phase 6 delivered the final optimisation and documentation pass for lit-ssr-edge:
 
 - **Streaming chunk coalescing** — 8 KB output buffering replaces one-chunk-per-string behaviour, significantly reducing ReadableStream overhead for large pages
 - **Platform examples** — fully working Cloudflare Worker and Node.js server examples with realistic component structures
 - **Migration guide** — step-by-step migration from `@lit-labs/ssr`, with an API mapping table and migration checklist
-- **Performance verification** — all benchmarks meet the Phase 1 targets; lit-edge equals or beats `@lit-labs/ssr` in most scenarios
+- **Performance verification** — all benchmarks meet the Phase 1 targets; lit-ssr-edge equals or beats `@lit-labs/ssr` in most scenarios
 
 ---
 
@@ -54,13 +54,13 @@ The buffer is flushed before any `await` so that already-rendered content is nev
 **`examples/cloudflare-worker/`**
 
 A complete, runnable Cloudflare Worker that:
-- Imports `lit-edge/install-global-dom-shim.js` as the first import
+- Imports `lit-ssr-edge/install-global-dom-shim.js` as the first import
 - Defines a `<my-app>` LitElement component
 - Uses a server-only template for the outer document shell
 - Uses a regular `html` template for the component (hydration-ready)
 - Returns a streaming `Response` from `RenderResultReadable`
 
-**No `nodejs_compat` flag** in `wrangler.toml` — lit-edge works with Cloudflare's
+**No `nodejs_compat` flag** in `wrangler.toml` — lit-ssr-edge works with Cloudflare's
 baseline WinterTC runtime.
 
 ```
@@ -143,9 +143,9 @@ A step-by-step guide for developers migrating from `@lit-labs/ssr`. Covers:
 
 All Phase 1 performance targets are met or exceeded.
 
-#### Phase 6 benchmark results (lit-edge vs @lit-labs/ssr)
+#### Phase 6 benchmark results (lit-ssr-edge vs @lit-labs/ssr)
 
-| Benchmark | @lit-labs/ssr | lit-edge | Ratio | Tier |
+| Benchmark | @lit-labs/ssr | lit-ssr-edge | Ratio | Tier |
 |-----------|---------------|----------|-------|------|
 | Simple text | 0.008ms | 0.012ms | 1.59× | Tier 1 ✅ |
 | String interpolation | 0.008ms | 0.007ms | **0.97×** | Tier 1 ✅ |
@@ -174,9 +174,9 @@ All Phase 1 performance targets are met or exceeded.
 | Complex: component list | 0.048ms | 0.038ms | **0.80×** | Tier 3 ✅ |
 
 **Key observations:**
-- lit-edge is **faster** than `@lit-labs/ssr` in 8 of 26 benchmarks
+- lit-ssr-edge is **faster** than `@lit-labs/ssr` in 8 of 26 benchmarks
 - All benchmarks are within 1.6× — well within the 2× maximum target
-- Complex and component-heavy scenarios show the largest advantages for lit-edge
+- Complex and component-heavy scenarios show the largest advantages for lit-ssr-edge
 
 #### Performance tier summary
 
@@ -226,15 +226,15 @@ Key verifications:
 
 ```bash
 # All test suites
-TEST_IMPL=lit-edge node --test test/integration/baseline/**/*.test.js
+TEST_IMPL=lit-ssr-edge node --test test/integration/baseline/**/*.test.js
 node --test test/unit/*.test.js test/integration/hydration/*.test.js
 node --test test/integration/components/*.test.js
 node --test test/integration/directives/*.test.js
 node --test test/integration/streaming/*.test.js
 
 # Performance benchmarks
-npm run perf:lit-edge
-npm run perf:compare benchmark-lit-ssr-*.json benchmark-lit-edge-*.json
+npm run perf:lit-ssr-edge
+npm run perf:compare benchmark-lit-ssr-*.json benchmark-lit-ssr-edge-*.json
 ```
 
 ---
@@ -255,7 +255,7 @@ From the architecture document:
 
 ## Conclusion
 
-lit-edge is feature-complete. All six implementation phases have been delivered:
+lit-ssr-edge is feature-complete. All six implementation phases have been delivered:
 
 | Phase | Deliverable | Tests |
 |-------|------------|-------|
@@ -269,5 +269,5 @@ lit-edge is feature-complete. All six implementation phases have been delivered:
 
 **Total: 305 tests passing, 0 failing.**
 
-lit-edge is ready for production use on Cloudflare Workers, Fastly Compute,
+lit-ssr-edge is ready for production use on Cloudflare Workers, Fastly Compute,
 Node.js 18+, Deno, and Bun.

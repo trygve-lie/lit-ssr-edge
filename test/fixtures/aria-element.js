@@ -1,7 +1,7 @@
 /**
  * Component with ElementInternals for testing ARIA/AOM attribute reflection.
  *
- * Uses attachInternals() to set ARIA properties. During SSR, lit-edge should
+ * Uses attachInternals() to set ARIA properties. During SSR, lit-ssr-edge should
  * reflect these to the rendered HTML so that search bots and assistive
  * technologies can read semantics before JavaScript runs.
  */

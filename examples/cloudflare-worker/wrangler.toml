@@ -1,9 +1,9 @@
-name = "lit-edge-example"
+name = "lit-ssr-edge-example"
 main = "dist/worker.js"
 compatibility_date = "2024-09-23"
 
 # Note: NO nodejs_compat flag needed!
-# lit-edge uses only Web Platform APIs (ReadableStream, TextEncoder, btoa, etc.)
+# lit-ssr-edge uses only Web Platform APIs (ReadableStream, TextEncoder, btoa, etc.)
 # and does not require Cloudflare's Node.js compatibility layer.
 
 # Build step bundles ESM source into a single worker script.

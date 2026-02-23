@@ -80,7 +80,7 @@ This directory contains comprehensive research documentation for building a Lit 
 - Client-side hydration process
 - LitElement automatic hydration
 - Declarative Shadow DOM requirements
-- Requirements for lit-edge compatibility
+- Requirements for lit-ssr-edge compatibility
 
 **[lit-server-only-templates.md](./lit-server-only-templates.md)**
 - Server-only templates vs regular templates
@@ -92,11 +92,11 @@ This directory contains comprehensive research documentation for building a Lit 
 - Binding restrictions (no events, properties, element parts)
 - Use cases and implementation requirements
 
-## Key Findings for lit-edge
+## Key Findings for lit-ssr-edge
 
 ### 1. WinterTC-Compatible Runtimes (Including Node.js)
 
-lit-edge targets WinterTC-compatible runtimes, which **includes modern Node.js**:
+lit-ssr-edge targets WinterTC-compatible runtimes, which **includes modern Node.js**:
 
 **Target platforms:**
 - **Cloudflare Workers** (without nodejs_compat)
@@ -278,7 +278,7 @@ const page = serverHtml`
 ### 1. ESM Modules Only
 
 ```javascript
-// lit-edge/src/index.js
+// lit-ssr-edge/src/index.js
 export { render } from './lib/render.js';
 export { RenderResultReadable } from './lib/render-stream.js';
 ```
@@ -346,7 +346,7 @@ Edge workers provide V8 isolate isolation by default. No need for `vm` module:
 
 ## Success Criteria
 
-A successful lit-edge implementation will:
+A successful lit-ssr-edge implementation will:
 
 1. ✅ Run on Cloudflare Workers and Fastly Compute
 2. ✅ Render LitElement components to HTML strings
