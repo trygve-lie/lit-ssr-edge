@@ -14,11 +14,11 @@ Runs on Cloudflare Workers (no `nodejs_compat` flag), Fastly Compute, Node.js 18
 | 3 | Hydration support (native digest + markers) | ✅ Complete |
 | 4 | Component support (DOM shim, ElementInternals, full test suite) | ✅ Complete |
 | 5 | Directive support (validation module, public entry point, 65 tests) | ✅ Complete |
-| 6 | Optimisation & polish | ⏳ Planned |
+| 6 | Optimisation (8 KB streaming), examples, migration guide | ✅ Complete |
 
-**Current:** Phase 5 complete — 291 tests passing (122 baseline + 51 hydration + 53 component + 65 directive).
+**Current:** All 6 phases complete — 305 tests passing, 0 failing.
 
-See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for the full roadmap and [`docs/PHASE_5_COMPLETE.md`](docs/PHASE_5_COMPLETE.md) for the latest phase summary.
+See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for the full roadmap and [`docs/PHASE_6_COMPLETE.md`](docs/PHASE_6_COMPLETE.md) for the final phase summary.
 
 ## Usage
 
@@ -118,6 +118,9 @@ node --test test/integration/components/*.test.js
 # Phase 5 directive tests (65 tests)
 node --test test/integration/directives/*.test.js
 
+# Phase 6 streaming tests (14 tests)
+node --test test/integration/streaming/*.test.js
+
 # Baseline tests against @lit-labs/ssr (reference)
 TEST_IMPL=lit-ssr node --test test/integration/baseline/**/*.test.js
 
@@ -138,6 +141,9 @@ npm run perf:compare benchmark-lit-ssr-*.json benchmark-lit-edge-*.json
 | [`docs/PHASE_3_COMPLETE.md`](docs/PHASE_3_COMPLETE.md) | Phase 3 — hydration support |
 | [`docs/PHASE_4_COMPLETE.md`](docs/PHASE_4_COMPLETE.md) | Phase 4 — component support |
 | [`docs/PHASE_5_COMPLETE.md`](docs/PHASE_5_COMPLETE.md) | Phase 5 — directive support |
+| [`docs/PHASE_6_COMPLETE.md`](docs/PHASE_6_COMPLETE.md) | Phase 6 — optimisation & polish |
+| [`docs/MIGRATION.md`](docs/MIGRATION.md) | Migrating from @lit-labs/ssr |
+| [`docs/QUICK_REFERENCE.md`](docs/QUICK_REFERENCE.md) | Fast lookup for common patterns and API |
 | [`docs/insight/`](docs/insight/) | Deep research on Lit internals and edge runtimes |
 
 ## External references
@@ -148,3 +154,15 @@ npm run perf:compare benchmark-lit-ssr-*.json benchmark-lit-edge-*.json
 - [WinterTC Specification](https://min-common-api.proposal.wintertc.org/)
 - [Cloudflare Workers](https://developers.cloudflare.com/workers/)
 - [Fastly Compute](https://www.fastly.com/documentation/guides/compute/javascript/)
+
+## Examples
+
+| Example | Platform | Location |
+|---------|----------|----------|
+| Cloudflare Worker (streaming, no nodejs_compat) | Cloudflare Workers | [`examples/cloudflare-worker/`](examples/cloudflare-worker/) |
+| Fastly Compute (SpiderMonkey + WASM) | Fastly Compute | [`examples/fastly-compute/`](examples/fastly-compute/) |
+| Node.js HTTP server (streaming + buffered) | Node.js 18+ | [`examples/node-js/`](examples/node-js/) |
+
+## Migrating from @lit-labs/ssr
+
+See [`docs/MIGRATION.md`](docs/MIGRATION.md) for a complete step-by-step guide including an API mapping table and migration checklist.
