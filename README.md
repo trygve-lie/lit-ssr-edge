@@ -106,23 +106,14 @@ const htmlString = await collectResult(render(page));
 ## Running tests
 
 ```bash
-# Baseline integration tests against lit-ssr-edge (122 tests)
-TEST_IMPL=lit-ssr-edge node --test test/integration/baseline/**/*.test.js
+# Run everything: baseline cross-check + full lit-ssr-edge suite (427 tests total)
+npm test
 
-# Phase 3 hydration tests (51 tests)
-node --test test/unit/*.test.js test/integration/hydration/*.test.js
+# Baseline tests against @lit-labs/ssr only (122 tests)
+npm run test:baseline
 
-# Phase 4 component tests (53 tests)
-node --test test/integration/components/*.test.js
-
-# Phase 5 directive tests (65 tests)
-node --test test/integration/directives/*.test.js
-
-# Phase 6 streaming tests (14 tests)
-node --test test/integration/streaming/*.test.js
-
-# Baseline tests against @lit-labs/ssr (reference)
-TEST_IMPL=lit-ssr node --test test/integration/baseline/**/*.test.js
+# Full lit-ssr-edge suite only (305 tests)
+npm run test:lit-ssr-edge
 
 # Performance benchmarks
 npm run perf:lit-ssr-edge
