@@ -7,9 +7,9 @@
   "type": "module",
   "main": "src/index.js",
   "scripts": {
-    "test": "node --test test/**/*.test.js",
-    "test:baseline": "TEST_IMPL=lit-ssr node --test test/integration/baseline/**/*.test.js",
-    "test:lit-ssr-edge": "TEST_IMPL=lit-ssr-edge node --test test/**/*.test.js",
+    "test": "npm run test:baseline && npm run test:lit-ssr-edge",
+    "test:baseline": "TEST_IMPL=lit-ssr node --test test/integration/baseline/*.test.js",
+    "test:lit-ssr-edge": "TEST_IMPL=lit-ssr-edge node --test test/unit/*.test.js test/integration/baseline/*.test.js test/integration/hydration/*.test.js test/integration/components/*.test.js test/integration/directives/*.test.js test/integration/streaming/*.test.js",
     "perf": "TEST_IMPL=lit-ssr node test/performance/render-performance.js",
     "perf:lit-ssr-edge": "TEST_IMPL=lit-ssr-edge node test/performance/render-performance.js",
     "perf:memory": "TEST_IMPL=lit-ssr node --expose-gc test/performance/memory-profile.js",
