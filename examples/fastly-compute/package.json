@@ -7,7 +7,7 @@
   "main": "src/index.js",
   "scripts": {
     "prebuild": "mkdir -p dist bin",
-    "build": "esbuild src/index.js --bundle --outfile=dist/bundle.js --format=esm --platform=neutral --conditions=node --main-fields=module,main --target=es2022 && js-compute-runtime dist/bundle.js bin/main.wasm",
+    "build": "node esbuild.config.js && js-compute-runtime dist/bundle.js bin/main.wasm",
     "start": "fastly compute serve",
     "deploy": "npm run build && fastly compute publish"
   },
