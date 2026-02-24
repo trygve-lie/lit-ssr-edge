@@ -1,4 +1,8 @@
 /**
+ * @license
+ * Copyright (c) 2019 Google LLC. SPDX-License-Identifier: BSD-3-Clause
+ * Portions copyright (c) 2026 lit-ssr-edge contributors.
+ *
  * HTML element property-to-attribute reflection map.
  *
  * Used when rendering property bindings (.prop=value) to determine what
@@ -142,6 +146,10 @@ const reflectedAttributesSource = [
 ];
 
 /**
+ * @license
+ * Copyright (c) 2019 Google LLC. SPDX-License-Identifier: BSD-3-Clause
+ * Portions copyright (c) 2026 lit-ssr-edge contributors.
+ *
  * Nested Map: element name (uppercase) → property name → attribute name.
  */
 const reflectedAttributes = new Map();
@@ -166,6 +174,10 @@ for (const [attr, elements] of reflectedAttributesSource) {
 }
 
 /**
+ * @license
+ * Copyright (c) 2019 Google LLC. SPDX-License-Identifier: BSD-3-Clause
+ * Portions copyright (c) 2026 lit-ssr-edge contributors.
+ *
  * Return the attribute name that reflects from the given property name on the
  * given element. Returns undefined if the property is not reflected.
  *

@@ -2,7 +2,7 @@
   "name": "lit-ssr-edge",
   "version": "1.0.0",
   "description": "Server-side renderer for Lit web components targeting WinterTC-compatible runtimes",
-  "license": "MIT",
+  "license": "BSD-3-Clause",
   "author": "",
   "type": "module",
   "main": "src/index.js",

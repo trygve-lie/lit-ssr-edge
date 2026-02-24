@@ -1,4 +1,8 @@
 /**
+ * @license
+ * Copyright (c) 2019 Google LLC. SPDX-License-Identifier: BSD-3-Clause
+ * Portions copyright (c) 2026 lit-ssr-edge contributors.
+ *
  * Base element renderer for custom elements.
  *
  * ElementRenderer provides the interface that rendering backends implement to
@@ -8,6 +12,10 @@
 import { escapeHtml } from './util/escape-html.js';
 
 /**
+ * @license
+ * Copyright (c) 2019 Google LLC. SPDX-License-Identifier: BSD-3-Clause
+ * Portions copyright (c) 2026 lit-ssr-edge contributors.
+ *
  * Looks up the appropriate ElementRenderer for a custom element instance.
  *
  * @param {Object} renderInfo - Current render context
@@ -37,6 +45,10 @@ export const getElementRenderer = (
 };
 
 /**
+ * @license
+ * Copyright (c) 2019 Google LLC. SPDX-License-Identifier: BSD-3-Clause
+ * Portions copyright (c) 2026 lit-ssr-edge contributors.
+ *
  * Base class for element renderers.
  *
  * Subclasses handle specific element types (e.g. LitElement) and implement
@@ -160,6 +172,10 @@ export class ElementRenderer {
 }
 
 /**
+ * @license
+ * Copyright (c) 2019 Google LLC. SPDX-License-Identifier: BSD-3-Clause
+ * Portions copyright (c) 2026 lit-ssr-edge contributors.
+ *
  * Fallback renderer used when no matching renderer is found.
  * Renders the element as-is (pass-through with no shadow DOM).
  */
