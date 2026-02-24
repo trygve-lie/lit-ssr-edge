@@ -5,7 +5,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "esbuild worker.js --bundle --format=esm --outfile=dist/worker.js --platform=neutral --conditions=node --main-fields=module,main --target=es2022",
+    "build": "node esbuild.config.js",
     "dev": "npm run build && wrangler dev",
     "deploy": "npm run build && wrangler deploy"
   },
