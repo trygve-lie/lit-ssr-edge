@@ -5,6 +5,11 @@
   "license": "BSD-3-Clause",
   "author": "",
   "type": "module",
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
   "main": "src/index.js",
   "exports": {
     ".": "./src/index.js",
