@@ -1,4 +1,8 @@
 /**
+ * @license
+ * Copyright (c) 2019 Google LLC. SPDX-License-Identifier: BSD-3-Clause
+ * Portions copyright (c) 2026 lit-ssr-edge contributors.
+ *
  * Server-only template support for lit-ssr-edge.
  *
  * Server-only templates do not generate hydration markers and support
@@ -9,6 +13,10 @@ import { html as baseHtml } from 'lit-html';
 const SERVER_ONLY = 1;
 
 /**
+ * @license
+ * Copyright (c) 2019 Google LLC. SPDX-License-Identifier: BSD-3-Clause
+ * Portions copyright (c) 2026 lit-ssr-edge contributors.
+ *
  * A lit-html template that can only be rendered on the server, and cannot be
  * hydrated.
  *
@@ -33,6 +41,10 @@ export function html(strings, ...values) {
 }
 
 /**
+ * @license
+ * Copyright (c) 2019 Google LLC. SPDX-License-Identifier: BSD-3-Clause
+ * Portions copyright (c) 2026 lit-ssr-edge contributors.
+ *
  * Returns true if the given template result is a normal (hydratable) lit-html
  * template, not a server-only template.
  *

@@ -1,4 +1,8 @@
 /**
+ * @license
+ * Copyright (c) 2019 Google LLC. SPDX-License-Identifier: BSD-3-Clause
+ * Portions copyright (c) 2026 lit-ssr-edge contributors.
+ *
  * Core rendering engine for lit-ssr-edge.
  *
  * Implements template opcode generation (via parse5 AST traversal) and
@@ -48,6 +52,10 @@ import { reflectedAttributeName } from './reflected-attributes.js';
 import { validateDirectiveSupport } from './directives-validation.js';
 
 /**
+ * @license
+ * Copyright (c) 2019 Google LLC. SPDX-License-Identifier: BSD-3-Clause
+ * Portions copyright (c) 2026 lit-ssr-edge contributors.
+ *
  * Patches a DirectiveResult's Directive class to call `render()` instead of
  * `update()` during SSR.
  */
@@ -56,6 +64,10 @@ function ssrResolve(_part, values) {
 }
 
 /**
+ * @license
+ * Copyright (c) 2019 Google LLC. SPDX-License-Identifier: BSD-3-Clause
+ * Portions copyright (c) 2026 lit-ssr-edge contributors.
+ *
  * Checks if a value is a DirectiveResult, validates it is SSR-compatible,
  * and patches its Directive class to call render() instead of update().
  *
@@ -72,6 +84,10 @@ const patchIfDirective = (value) => {
 };
 
 /**
+ * @license
+ * Copyright (c) 2019 Google LLC. SPDX-License-Identifier: BSD-3-Clause
+ * Portions copyright (c) 2026 lit-ssr-edge contributors.
+ *
  * Patches directive results in AttributePart values, which may be arrays.
  */
 const patchAnyDirectives = (part, value, valueIndex) => {
@@ -85,18 +101,30 @@ const patchAnyDirectives = (part, value, valueIndex) => {
 };
 
 /**
+ * @license
+ * Copyright (c) 2019 Google LLC. SPDX-License-Identifier: BSD-3-Clause
+ * Portions copyright (c) 2026 lit-ssr-edge contributors.
+ *
  * Template opcode cache, keyed by TemplateStringsArray reference.
  * Shared across requests (templates are immutable).
  */
 const templateCache = new WeakMap();
 
 /**
+ * @license
+ * Copyright (c) 2019 Google LLC. SPDX-License-Identifier: BSD-3-Clause
+ * Portions copyright (c) 2026 lit-ssr-edge contributors.
+ *
  * Pattern matching top-level document tags that require full-document parsing.
  */
 const REGEXP_TEMPLATE_HAS_TOP_LEVEL_PAGE_TAG =
   /^(\s|<!--[^(-->)]*-->)*(<(!doctype|html|head|body))/i;
 
 /**
+ * @license
+ * Copyright (c) 2019 Google LLC. SPDX-License-Identifier: BSD-3-Clause
+ * Portions copyright (c) 2026 lit-ssr-edge contributors.
+ *
  * Generates and caches opcodes for a given TemplateResult.
  *
  * Opcodes are an array of instructions that guide rendering:
@@ -384,6 +412,10 @@ const getTemplateOpcodes = (result) => {
 };
 
 /**
+ * @license
+ * Copyright (c) 2019 Google LLC. SPDX-License-Identifier: BSD-3-Clause
+ * Portions copyright (c) 2026 lit-ssr-edge contributors.
+ *
  * Renders a value to an array of strings and thunks (ThunkedRenderResult).
  *
  * @param {unknown} value - Value to render
@@ -437,6 +469,10 @@ export function renderValue(value, renderInfo, hydratable = true) {
 }
 
 /**
+ * @license
+ * Copyright (c) 2019 Google LLC. SPDX-License-Identifier: BSD-3-Clause
+ * Portions copyright (c) 2026 lit-ssr-edge contributors.
+ *
  * Renders a TemplateResult to a ThunkedRenderResult.
  *
  * @param {TemplateResult} result
@@ -702,6 +738,10 @@ function renderAttributePart(instance, op, value) {
 }
 
 /**
+ * @license
+ * Copyright (c) 2019 Google LLC. SPDX-License-Identifier: BSD-3-Clause
+ * Portions copyright (c) 2026 lit-ssr-edge contributors.
+ *
  * Returns true if the node is a <script> tag that the browser will execute.
  */
 function isJavaScriptScriptTag(node) {

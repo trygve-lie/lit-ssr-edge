@@ -1,4 +1,8 @@
 /**
+ * @license
+ * Copyright (c) 2019 Google LLC. SPDX-License-Identifier: BSD-3-Clause
+ * Portions copyright (c) 2026 lit-ssr-edge contributors.
+ *
  * LitElement-specific renderer for server-side rendering.
  *
  * Handles the LitElement SSR lifecycle (willUpdate → update → render) and
@@ -32,6 +36,10 @@ LitElement.prototype['createRenderRoot'] = function () {
 };
 
 /**
+ * @license
+ * Copyright (c) 2019 Google LLC. SPDX-License-Identifier: BSD-3-Clause
+ * Portions copyright (c) 2026 lit-ssr-edge contributors.
+ *
  * ElementRenderer implementation for LitElements.
  */
 export class LitElementRenderer extends ElementRenderer {

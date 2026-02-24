@@ -1,0 +1,59 @@
+BSD 3-Clause License
+
+Portions of this software are derived from @lit-labs/ssr and related Lit
+packages, which are copyright (c) 2019 Google LLC. All rights reserved.
+
+Copyright (c) 2026 lit-ssr-edge contributors. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its contributors
+   may be used to endorse or promote products derived from this software
+   without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+---
+
+ATTRIBUTION
+
+This project is a port and adaptation of @lit-labs/ssr
+(https://github.com/lit/lit/tree/main/packages/labs/ssr), which is part of the
+Lit project maintained by Google LLC and licensed under the BSD 3-Clause
+License. The following components are substantially derived from that work:
+
+  - src/lib/render-value.js     — ported from @lit-labs/ssr/lib/render-value.js
+  - src/lib/render-result.js    — ported from @lit-labs/ssr/lib/render-result.js
+  - src/lib/render.js           — ported from @lit-labs/ssr/lib/render.js
+  - src/lib/element-renderer.js — ported from @lit-labs/ssr/lib/element-renderer.js
+  - src/lib/lit-element-renderer.js — ported from @lit-labs/ssr/lib/lit-element-renderer.js
+  - src/lib/server-template.js  — ported from @lit-labs/ssr/lib/server-template.js
+  - src/lib/reflected-attributes.js — ported from @lit-labs/ssr/lib/reflected-attributes.js
+  - src/lib/util/escape-html.js — ported from @lit-labs/ssr/lib/util/escape-html.js
+
+The key adaptation is replacing Node.js-specific APIs (stream.Readable,
+node-fetch, vm) with Web Platform APIs (ReadableStream, fetch, TextEncoder) to
+enable operation on WinterTC-compatible edge runtimes such as Cloudflare
+Workers and Fastly Compute.
+
+Original Lit / @lit-labs/ssr copyright:
+  Copyright (c) 2019 Google LLC. All rights reserved.
+  SPDX-License-Identifier: BSD-3-Clause
+  https://github.com/lit/lit/blob/main/LICENSE

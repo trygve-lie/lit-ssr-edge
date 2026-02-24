@@ -1,4 +1,8 @@
 /**
+ * @license
+ * Copyright (c) 2019 Google LLC. SPDX-License-Identifier: BSD-3-Clause
+ * Portions copyright (c) 2026 lit-ssr-edge contributors.
+ *
  * Utilities for collecting a RenderResult or ThunkedRenderResult into a string.
  *
  * RenderResult is an iterable of strings, thunks, Promises, and nested
@@ -6,6 +10,10 @@
  */
 
 /**
+ * @license
+ * Copyright (c) 2019 Google LLC. SPDX-License-Identifier: BSD-3-Clause
+ * Portions copyright (c) 2026 lit-ssr-edge contributors.
+ *
  * Joins a RenderResult or ThunkedRenderResult into a string asynchronously.
  * Supports Promises in the result (awaits them in order).
  *
@@ -45,6 +53,10 @@ export const collectResult = async (result) => {
 };
 
 /**
+ * @license
+ * Copyright (c) 2019 Google LLC. SPDX-License-Identifier: BSD-3-Clause
+ * Portions copyright (c) 2026 lit-ssr-edge contributors.
+ *
  * Joins a RenderResult or ThunkedRenderResult into a string synchronously.
  * Throws if the result contains Promises.
  *
