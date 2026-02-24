@@ -1,6 +1,6 @@
 {
   "name": "lit-ssr-edge",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Server-side renderer for Lit web components targeting WinterTC-compatible runtimes",
   "license": "BSD-3-Clause",
   "author": "",
