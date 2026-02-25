@@ -26,13 +26,14 @@ This document outlines the architecture for lit-ssr-edge, a server-side renderer
 
 ### Project Goals
 
-lit-ssr-edge provides server-side rendering for Lit components on WinterTC-compatible runtimes, including edge computing platforms (Cloudflare Workers, Fastly Compute), modern Node.js, Deno, and Bun. It maintains compatibility with Lit's official `@lit-labs/ssr-client` hydration.
+lit-ssr-edge provides server-side rendering for Lit components on WinterTC-compatible runtimes, including edge computing platforms (Cloudflare Workers, Fastly Compute, Netlify Edge Functions), modern Node.js, Deno, and Bun. It maintains compatibility with Lit's official `@lit-labs/ssr-client` hydration.
 
 ### Core Requirements
 
 1. **WinterTC compatibility** - Run on any WinterTC-compatible runtime:
    - Cloudflare Workers (without nodejs_compat mode)
    - Fastly Compute
+   - Netlify Edge Functions (Deno runtime)
    - Node.js 18+ (modern LTS versions)
    - Deno
    - Bun
@@ -1296,39 +1297,51 @@ lit-ssr-edge targets **WinterTC-compatible runtimes** that implement the Minimum
    - 128 MB memory limit
    - Works **without** `nodejs_compat` flag
    - Uses pure Web Platform APIs
+   - Build: esbuild with `--platform=neutral --conditions=node`
 
 2. **Fastly Compute**
    - SpiderMonkey (WASI/WebAssembly)
    - Variable memory by plan
    - WinterTC-compliant
+   - Build: esbuild → `js-compute-runtime` (WASM)
 
-3. **Node.js 18+**
+3. **Netlify Edge Functions**
+   - Deno runtime (WinterTC-compliant, member of WinterTC)
+   - No custom build step — Netlify bundles automatically
+   - Deno natively resolves the `node` export condition, so `lit-html`'s
+     SSR-safe build is selected without extra bundler flags
+   - Handler: `export default async (request, context) => Response`
+   - Local dev: `netlify dev`
+
+4. **Node.js 18+**
    - Modern LTS versions (18, 20, 22+)
    - Native Web Streams support
    - Native `fetch()` support (Node 18+)
    - WinterTC-compliant
 
-4. **Deno**
+5. **Deno**
    - Built on Web Platform APIs
    - WinterTC-compliant
 
-5. **Bun**
+6. **Bun**
    - Fast JavaScript runtime
    - WinterTC-compliant
 
 ### Platform Support Matrix
 
-| Feature | Cloudflare | Fastly | Node.js 18+ | Deno | Bun |
-|---------|------------|--------|-------------|------|-----|
-| ReadableStream | ✅ | ✅ | ✅ | ✅ | ✅ |
-| TextEncoder/Decoder | ✅ | ✅ | ✅ | ✅ | ✅ |
-| URL APIs | ✅ | ✅ | ✅ | ✅ | ✅ |
-| fetch() | ✅ | ✅ | ✅ | ✅ | ✅ |
-| AbortController | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Custom elements (global) | ✅ | ✅ | ❌* | ✅ | ✅ |
-| ESM modules | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Feature | Cloudflare | Fastly | Netlify Edge | Node.js 18+ | Deno | Bun |
+|---------|------------|--------|--------------|-------------|------|-----|
+| ReadableStream | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| TextEncoder/Decoder | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| URL APIs | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| fetch() | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| AbortController | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Custom elements (global) | ✅ | ✅ | ❌* | ❌* | ✅ | ✅ |
+| ESM modules | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| `node` export condition | via flag | via flag | native | native | native | native |
+| Build step required | ✅ esbuild | ✅ esbuild + WASM | ❌ auto | ❌ | ❌ | ❌ |
 
-*Node.js requires DOM shim for `customElements` (provided by lit-ssr-edge)
+*Requires DOM shim for `customElements` (provided by `lit-ssr-edge/install-global-dom-shim.js`)
 
 ### Cloudflare Workers: No nodejs_compat Required
 

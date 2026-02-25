@@ -1,0 +1,12 @@
+# Netlify configuration
+# https://docs.netlify.com/configure-builds/file-based-configuration/
+
+# Edge Functions are loaded from netlify/edge-functions/ by default.
+# Routing can be declared here (netlify.toml) OR inline via `export const config`
+# inside the function file itself. Both are shown for reference; having both
+# is fine — Netlify merges them.
+
+[[edge_functions]]
+  # Handle all requests with the render function.
+  path = "/*"
+  function = "render"
