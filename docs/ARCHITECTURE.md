@@ -26,7 +26,7 @@ This document outlines the architecture for lit-ssr-edge, a server-side renderer
 
 ### Project Goals
 
-lit-ssr-edge provides server-side rendering for Lit components on WinterTC-compatible runtimes, including edge computing platforms (Cloudflare Workers, Fastly Compute, Netlify Edge Functions, Vercel Edge Functions), modern Node.js, Deno, and Bun. It maintains compatibility with Lit's official `@lit-labs/ssr-client` hydration.
+lit-ssr-edge provides server-side rendering for Lit components on WinterTC-compatible runtimes, including edge computing platforms (Cloudflare Workers, Fastly Compute, Netlify Edge Functions, Vercel Edge Functions) and browser Service Workers, as well as modern Node.js, Deno, and Bun. It maintains compatibility with Lit's official `@lit-labs/ssr-client` hydration.
 
 ### Core Requirements
 
@@ -35,6 +35,7 @@ lit-ssr-edge provides server-side rendering for Lit components on WinterTC-compa
    - Fastly Compute
    - Netlify Edge Functions (Deno runtime)
    - Vercel Edge Functions (V8 isolate runtime)
+   - Browser Service Workers (Chrome 91+, Edge 91+, Safari 15+)
    - Node.js 18+ (modern LTS versions)
    - Deno
    - Bun
@@ -1338,25 +1339,39 @@ lit-ssr-edge targets **WinterTC-compatible runtimes** that implement the Minimum
    - Fast JavaScript runtime
    - WinterTC-compliant
 
+8. **Browser Service Workers**
+   - WinterTC's Minimum Common API originated from the Service Worker spec
+   - Requires Chrome 91+ / Edge 91+ / Safari 15+ (module service workers)
+   - ReadableStream as Response body: Chrome 52+, Safari, Edge; Firefox pending
+   - Intercepts navigation requests via `fetch` event + `respondWith()`
+   - Runs client-side — enables offline SSR with no external server
+   - Same esbuild pre-bundle requirement as Cloudflare/Fastly
+   - Handler: `self.addEventListener('fetch', event => event.respondWith(...))`
+
 ### Platform Support Matrix
 
-| Feature | Cloudflare | Fastly | Netlify Edge | Vercel Edge | Node.js 18+ | Deno | Bun |
-|---------|------------|--------|--------------|-------------|-------------|------|-----|
-| ReadableStream | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| TextEncoder/Decoder | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| URL APIs | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| fetch() | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| AbortController | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Custom elements (global) | ✅ | ✅ | ❌* | ❌* | ❌* | ✅ | ✅ |
-| ESM modules | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| `node` export condition | via flag | via flag | native | via flag† | native | native | native |
-| Build step required | ✅ esbuild | ✅ esbuild + WASM | ❌ auto | ❌ auto† | ❌ | ❌ | ❌ |
+| Feature | Cloudflare | Fastly | Netlify Edge | Vercel Edge | Service Worker | Node.js 18+ | Deno | Bun |
+|---------|------------|--------|--------------|-------------|----------------|-------------|------|-----|
+| ReadableStream | ✅ | ✅ | ✅ | ✅ | ✅‡ | ✅ | ✅ | ✅ |
+| TextEncoder/Decoder | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| URL APIs | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| fetch() | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| AbortController | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Custom elements (global) | ✅ | ✅ | ❌* | ❌* | ❌* | ❌* | ✅ | ✅ |
+| ESM modules | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| `node` export condition | via flag | via flag | native | via flag† | via flag | native | native | native |
+| Build step required | ✅ esbuild | ✅ esbuild + WASM | ❌ auto | ❌ auto† | ✅ esbuild | ❌ | ❌ | ❌ |
+| Offline capable | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ |
 
 *Requires DOM shim (provided by `lit-ssr-edge/install-global-dom-shim.js`)
 
 †Vercel bundles automatically but may use the `browser` export condition rather than `node`.
 If `ReferenceError: document is not defined` occurs, a pre-bundle step with
 `--platform=neutral --conditions=node` is required (same as Cloudflare/Fastly).
+
+‡ReadableStream as Response body in service workers is supported in Chrome, Edge, and Safari.
+Firefox does not yet support this; lit-ssr-edge detects this at runtime and falls back to
+buffered rendering (`collectResult`) for Firefox.
 
 ### Cloudflare Workers: No nodejs_compat Required
 

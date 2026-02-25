@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>lit-ssr-edge — Service Worker</title>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+        color: #1a1a2e;
+      }
+      .status {
+        background: #e8f4fd;
+        border-left: 4px solid #1565c0;
+        padding: 0.75rem 1rem;
+        margin: 1rem 0;
+        font-size: 0.9em;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Setting up Service Worker…</h1>
+    <div class="status">
+      Registering service worker. This page will reload automatically once
+      the service worker is active and ready to render pages with lit-ssr-edge.
+    </div>
+
+    <script type="module">
+      if (!('serviceWorker' in navigator)) {
+        document.querySelector('.status').textContent =
+          'Service Workers are not supported in this browser.';
+        throw new Error('Service Workers not supported');
+      }
+
+      // Listen for the 'sw-activated' message the service worker sends
+      // from its activate event (after clients.claim() completes).
+      // This is more reliable than the 'controllerchange' event:
+      // the SW sends the message only after it has fully claimed the client
+      // and is guaranteed to intercept the next navigation request.
+      navigator.serviceWorker.addEventListener('message', (event) => {
+        if (event.data?.type === 'sw-activated') {
+          window.location.reload();
+        }
+      });
+
+      // Register the pre-bundled service worker.
+      const registration = await navigator.serviceWorker.register(
+        '/sw.js',
+        { type: 'module' },
+      );
+
+      // If a service worker is already controlling this page (returning visitor
+      // or fast activation), reload immediately — no message will be sent.
+      if (navigator.serviceWorker.controller) {
+        window.location.reload();
+      }
+    </script>
+  </body>
+</html>

@@ -154,6 +154,7 @@ npm run perf:compare benchmark-lit-ssr-*.json benchmark-lit-ssr-edge-*.json
 | Fastly Compute (SpiderMonkey + WASM) | Fastly Compute | [`examples/fastly-compute/`](examples/fastly-compute/) |
 | Netlify Edge Functions (Deno, no build step) | Netlify Edge | [`examples/netlify-edge/`](examples/netlify-edge/) |
 | Vercel Edge Functions (V8 isolate) | Vercel Edge | [`examples/vercel-edge/`](examples/vercel-edge/) |
+| Browser Service Worker (no server required) | Browser SW | [`examples/service-worker/`](examples/service-worker/) |
 | Node.js HTTP server (streaming + buffered) | Node.js 18+ | [`examples/node-js/`](examples/node-js/) |
 
 ## Migrating from @lit-labs/ssr
