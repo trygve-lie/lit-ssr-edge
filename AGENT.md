@@ -2,7 +2,7 @@
 
 **Server-side renderer for Lit web components targeting WinterTC-compatible runtimes.**
 
-This project implements SSR for Lit components that runs on edge workers (Cloudflare Workers, Fastly Compute) and modern runtimes (Node.js 18+, Deno, Bun) using only Web Platform APIs. It's inspired by `@lit-labs/ssr` but built without Node.js dependencies.
+This project implements SSR for Lit components that runs on edge workers (Cloudflare Workers, Fastly Compute, Netlify Edge Functions, Vercel Edge Functions) and modern runtimes (Node.js 18+, Deno, Bun) using only Web Platform APIs. It's inspired by `@lit-labs/ssr` but built without Node.js dependencies.
 
 ## Quick Start: Where Should You Go?
 
@@ -33,7 +33,7 @@ Choose based on what you're here to do:
 
 ## Goals
 
-- **WinterTC-compatible:** Cloudflare Workers (no nodejs_compat), Fastly Compute, Netlify Edge Functions, Node.js 18+, Deno, Bun
+- **WinterTC-compatible:** Cloudflare Workers (no nodejs_compat), Fastly Compute, Netlify Edge Functions, Vercel Edge Functions, Node.js 18+, Deno, Bun
 - **Web Platform APIs only:** ReadableStream, fetch(), TextEncoder (no Node.js APIs)
 - **Modern JavaScript:** ES2026 features, ESM modules exclusively
 - **Minimal dependencies:** Prefer Web Platform APIs, bundle only essential packages
@@ -101,6 +101,7 @@ See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for full implementation roadm
 - Cloudflare Workers (no nodejs_compat needed)
 - Fastly Compute
 - Netlify Edge Functions (Deno runtime, no build step)
+- Vercel Edge Functions (V8 isolate, auto-bundled)
 - Node.js 18+ LTS
 - Deno, Bun
 
