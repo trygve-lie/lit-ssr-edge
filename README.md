@@ -91,7 +91,7 @@ const htmlString = await collectResult(render(page));
 
 ## Goals
 
-- **WinterTC-compatible** — Cloudflare Workers (no `nodejs_compat`), Fastly Compute, Node.js 18+, Deno, Bun
+- **WinterTC-compatible** — Cloudflare Workers (no `nodejs_compat`), Fastly Compute, Netlify Edge Functions, Node.js 18+, Deno, Bun
 - **Web Platform APIs only** — `ReadableStream`, `TextEncoder`, `btoa`, `fetch()` (no `stream.Readable`, `fs`, `vm`, `Buffer`)
 - **Modern JavaScript** — ES modules, ES2026 features
 - **Minimal dependencies** — `parse5`, `@parse5/tools`, `@lit-labs/ssr-dom-shim` are the only runtime dependencies
@@ -152,6 +152,7 @@ npm run perf:compare benchmark-lit-ssr-*.json benchmark-lit-ssr-edge-*.json
 |---------|----------|----------|
 | Cloudflare Worker (streaming, no nodejs_compat) | Cloudflare Workers | [`examples/cloudflare-worker/`](examples/cloudflare-worker/) |
 | Fastly Compute (SpiderMonkey + WASM) | Fastly Compute | [`examples/fastly-compute/`](examples/fastly-compute/) |
+| Netlify Edge Functions (Deno, no build step) | Netlify Edge | [`examples/netlify-edge/`](examples/netlify-edge/) |
 | Node.js HTTP server (streaming + buffered) | Node.js 18+ | [`examples/node-js/`](examples/node-js/) |
 
 ## Migrating from @lit-labs/ssr

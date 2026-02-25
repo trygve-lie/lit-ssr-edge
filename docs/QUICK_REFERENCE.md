@@ -2,7 +2,7 @@
 
 **Purpose:** Fast lookups for the current lit-ssr-edge implementation without reading full phase docs or insight files.
 
-**Last Updated:** Phase 5 Complete (Feb 2026)
+**Last Updated:** Phase 6 Complete + Netlify Edge support confirmed (Feb 2026)
 
 ---
 
@@ -66,7 +66,7 @@ import {
 ### DOM Shim (`src/install-global-dom-shim.js`)
 
 ```javascript
-// Import once before any component bundles (Cloudflare Workers, Node.js, Deno, Bun)
+// Import once before any component bundles (Cloudflare Workers, Fastly Compute, Netlify Edge, Node.js, Deno, Bun)
 import 'lit-ssr-edge/install-global-dom-shim.js';
 ```
 
@@ -333,6 +333,7 @@ import { html as serverHtml } from 'lit-ssr-edge/server-template.js';
 |---------|------------|
 | Cloudflare Workers | ✅ Yes — no DOM globals |
 | Fastly Compute | ✅ Yes — no DOM globals |
+| Netlify Edge Functions | ✅ Yes — Deno has no browser DOM globals |
 | Node.js 18+ | ✅ Yes (auto-installed by lit-element as transitive dep) |
 | Deno / Bun | ✅ Yes |
 | Browser | ❌ No |
@@ -388,9 +389,11 @@ require()                         →  ESM only
 | 3 | Hydration support (native digest + markers) | ✅ Complete | 51 |
 | 4 | Component support (DOM shim, ElementInternals) | ✅ Complete | 53 |
 | 5 | Directive support (validation, public entry point) | ✅ Complete | 65 |
-| 6 | Optimisation & polish | ⏳ Planned | — |
+| 6 | Optimisation & polish (8 KB streaming, examples, migration guide) | ✅ Complete | 14 |
 
-**Total tests passing: 291**
+**Total tests passing: 305**
+
+**Confirmed platforms:** Cloudflare Workers, Fastly Compute, Netlify Edge Functions, Node.js 18+, Deno, Bun
 
 ---
 
