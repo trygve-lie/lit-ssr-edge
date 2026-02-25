@@ -26,7 +26,7 @@ This document outlines the architecture for lit-ssr-edge, a server-side renderer
 
 ### Project Goals
 
-lit-ssr-edge provides server-side rendering for Lit components on WinterTC-compatible runtimes, including edge computing platforms (Cloudflare Workers, Fastly Compute, Netlify Edge Functions), modern Node.js, Deno, and Bun. It maintains compatibility with Lit's official `@lit-labs/ssr-client` hydration.
+lit-ssr-edge provides server-side rendering for Lit components on WinterTC-compatible runtimes, including edge computing platforms (Cloudflare Workers, Fastly Compute, Netlify Edge Functions, Vercel Edge Functions), modern Node.js, Deno, and Bun. It maintains compatibility with Lit's official `@lit-labs/ssr-client` hydration.
 
 ### Core Requirements
 
@@ -34,6 +34,7 @@ lit-ssr-edge provides server-side rendering for Lit components on WinterTC-compa
    - Cloudflare Workers (without nodejs_compat mode)
    - Fastly Compute
    - Netlify Edge Functions (Deno runtime)
+   - Vercel Edge Functions (V8 isolate runtime)
    - Node.js 18+ (modern LTS versions)
    - Deno
    - Bun
@@ -1313,35 +1314,49 @@ lit-ssr-edge targets **WinterTC-compatible runtimes** that implement the Minimum
    - Handler: `export default async (request, context) => Response`
    - Local dev: `netlify dev`
 
-4. **Node.js 18+**
+4. **Vercel Edge Functions**
+   - V8-isolate based runtime (WinterTC-compliant, member of WinterTC)
+   - No custom build step — Vercel bundles automatically (esbuild-based)
+   - Opt-in per function via `export const config = { runtime: 'edge' }`
+   - Handler: `export default async function handler(request) → Response`
+   - Local dev: `vercel dev`
+   - ⚠ If bundler resolves lit-html to its browser build,
+     `document is not defined` will occur — same fix as Cloudflare/Fastly
+     (`--platform=neutral --conditions=node`) via a pre-bundle step
+
+5. **Node.js 18+**
    - Modern LTS versions (18, 20, 22+)
    - Native Web Streams support
    - Native `fetch()` support (Node 18+)
    - WinterTC-compliant
 
-5. **Deno**
+6. **Deno**
    - Built on Web Platform APIs
    - WinterTC-compliant
 
-6. **Bun**
+7. **Bun**
    - Fast JavaScript runtime
    - WinterTC-compliant
 
 ### Platform Support Matrix
 
-| Feature | Cloudflare | Fastly | Netlify Edge | Node.js 18+ | Deno | Bun |
-|---------|------------|--------|--------------|-------------|------|-----|
-| ReadableStream | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| TextEncoder/Decoder | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| URL APIs | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| fetch() | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| AbortController | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Custom elements (global) | ✅ | ✅ | ❌* | ❌* | ✅ | ✅ |
-| ESM modules | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| `node` export condition | via flag | via flag | native | native | native | native |
-| Build step required | ✅ esbuild | ✅ esbuild + WASM | ❌ auto | ❌ | ❌ | ❌ |
+| Feature | Cloudflare | Fastly | Netlify Edge | Vercel Edge | Node.js 18+ | Deno | Bun |
+|---------|------------|--------|--------------|-------------|-------------|------|-----|
+| ReadableStream | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| TextEncoder/Decoder | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| URL APIs | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| fetch() | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| AbortController | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Custom elements (global) | ✅ | ✅ | ❌* | ❌* | ❌* | ✅ | ✅ |
+| ESM modules | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| `node` export condition | via flag | via flag | native | via flag† | native | native | native |
+| Build step required | ✅ esbuild | ✅ esbuild + WASM | ❌ auto | ❌ auto† | ❌ | ❌ | ❌ |
 
-*Requires DOM shim for `customElements` (provided by `lit-ssr-edge/install-global-dom-shim.js`)
+*Requires DOM shim (provided by `lit-ssr-edge/install-global-dom-shim.js`)
+
+†Vercel bundles automatically but may use the `browser` export condition rather than `node`.
+If `ReferenceError: document is not defined` occurs, a pre-bundle step with
+`--platform=neutral --conditions=node` is required (same as Cloudflare/Fastly).
 
 ### Cloudflare Workers: No nodejs_compat Required
 

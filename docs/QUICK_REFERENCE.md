@@ -66,7 +66,7 @@ import {
 ### DOM Shim (`src/install-global-dom-shim.js`)
 
 ```javascript
-// Import once before any component bundles (Cloudflare Workers, Fastly Compute, Netlify Edge, Node.js, Deno, Bun)
+// Import once before any component bundles (Cloudflare Workers, Fastly Compute, Netlify Edge, Vercel Edge, Node.js, Deno, Bun)
 import 'lit-ssr-edge/install-global-dom-shim.js';
 ```
 
@@ -334,6 +334,7 @@ import { html as serverHtml } from 'lit-ssr-edge/server-template.js';
 | Cloudflare Workers | ✅ Yes — no DOM globals |
 | Fastly Compute | ✅ Yes — no DOM globals |
 | Netlify Edge Functions | ✅ Yes — Deno has no browser DOM globals |
+| Vercel Edge Functions | ✅ Yes — V8 edge runtime has no browser DOM globals |
 | Node.js 18+ | ✅ Yes (auto-installed by lit-element as transitive dep) |
 | Deno / Bun | ✅ Yes |
 | Browser | ❌ No |
@@ -393,7 +394,7 @@ require()                         →  ESM only
 
 **Total tests passing: 305**
 
-**Confirmed platforms:** Cloudflare Workers, Fastly Compute, Netlify Edge Functions, Node.js 18+, Deno, Bun
+**Confirmed platforms:** Cloudflare Workers, Fastly Compute, Netlify Edge Functions, Vercel Edge Functions, Node.js 18+, Deno, Bun
 
 ---
 
