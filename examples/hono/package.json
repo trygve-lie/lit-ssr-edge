@@ -1,0 +1,19 @@
+{
+  "name": "lit-ssr-edge-hono-example",
+  "version": "1.0.0",
+  "description": "Example: lit-ssr-edge SSR inside a Hono application",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.13.0",
+    "hono": "^4.0.0",
+    "lit": "3.3.2",
+    "lit-ssr-edge": "file:../.."
+  }
+}
