@@ -155,6 +155,7 @@ npm run perf:compare benchmark-lit-ssr-*.json benchmark-lit-ssr-edge-*.json
 | Netlify Edge Functions (Deno, no build step) | Netlify Edge | [`examples/netlify-edge/`](examples/netlify-edge/) |
 | Vercel Edge Functions (V8 isolate) | Vercel Edge | [`examples/vercel-edge/`](examples/vercel-edge/) |
 | Browser Service Worker (no server required) | Browser SW | [`examples/service-worker/`](examples/service-worker/) |
+| Hono (all WinterTC runtimes, single app) | Hono | [`examples/hono/`](examples/hono/) |
 | Node.js HTTP server (streaming + buffered) | Node.js 18+ | [`examples/node-js/`](examples/node-js/) |
 
 ## Migrating from @lit-labs/ssr
