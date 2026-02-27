@@ -5,10 +5,18 @@
  * point, fallback behaviour for unregistered elements, and edge cases such
  * as components with no shadow DOM or components that render nothing.
  */
-import { describe, test, before } from 'node:test';
+import { describe, test } from 'node:test';
 import assert from 'node:assert/strict';
 import { html } from 'lit';
 import { render, collectResult, installGlobalDomShim } from '../../../src/index.js';
+
+// Fixtures — static imports so the file works on all runtimes including Deno,
+// which does not yet implement node:test's before() hook.
+import '../../fixtures/simple-greeting.js';
+import '../../fixtures/card-component.js';
+import '../../fixtures/lifecycle-element.js';
+import '../../fixtures/aria-element.js';
+import '../../fixtures/reflected-element.js';
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -20,17 +28,6 @@ const stripMarkers = (html) =>
     .replace(/<!--lit-part[^>]*-->/g, '')
     .replace(/<!--\/lit-part-->/g, '')
     .replace(/<!--lit-node \d+-->/g, '');
-
-// ── Fixtures ─────────────────────────────────────────────────────────────────
-
-before(async () => {
-  // Load component fixtures — they call customElements.define() as a side effect
-  await import('../../fixtures/simple-greeting.js');
-  await import('../../fixtures/card-component.js');
-  await import('../../fixtures/lifecycle-element.js');
-  await import('../../fixtures/aria-element.js');
-  await import('../../fixtures/reflected-element.js');
-});
 
 // ── DOM shim ─────────────────────────────────────────────────────────────────
 

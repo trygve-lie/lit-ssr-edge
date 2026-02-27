@@ -7,7 +7,11 @@ on:
     branches: ["**"]
 
 jobs:
-  test:
+  # ── Node.js ──────────────────────────────────────────────────────────────────
+  # Runs the full suite including test:baseline (cross-check against @lit-labs/ssr,
+  # which depends on Node.js-only APIs and cannot run on Bun or Deno).
+
+  test-node:
     name: Node.js ${{ matrix.node-version }}
     runs-on: ubuntu-latest
 
@@ -33,3 +37,63 @@ jobs:
 
       - name: Full lit-ssr-edge test suite
         run: npm run test:lit-ssr-edge
+
+  # ── Bun ──────────────────────────────────────────────────────────────────────
+  # Runs the lit-ssr-edge suite only (test:baseline uses @lit-labs/ssr which
+  # depends on Node.js-only APIs and is excluded from Bun/Deno runs).
+
+  test-bun:
+    name: Bun ${{ matrix.bun-version }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        bun-version: ["latest"]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Bun ${{ matrix.bun-version }}
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: ${{ matrix.bun-version }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: lit-ssr-edge test suite (Bun)
+        run: npm run test:bun
+
+  # ── Deno ─────────────────────────────────────────────────────────────────────
+  # Runs the lit-ssr-edge suite only.
+  # --no-check skips TypeScript type-checking of transitive npm dependencies
+  # (our source is plain JavaScript; the type errors are from Deno's TS analyser
+  # finding sub-packages like lit-html that aren't listed as direct deps).
+  # deno.json sets nodeModulesDir: "manual" so Deno uses the node_modules
+  # directory populated by npm install rather than managing its own.
+
+  test-deno:
+    name: Deno ${{ matrix.deno-version }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        deno-version: ["v2.x"]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Deno ${{ matrix.deno-version }}
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: ${{ matrix.deno-version }}
+
+      - name: Install dependencies (populate node_modules for Deno)
+        run: npm install
+
+      - name: lit-ssr-edge test suite (Deno)
+        run: npm run test:deno

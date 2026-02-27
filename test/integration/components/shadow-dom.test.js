@@ -5,11 +5,76 @@
  * unnamed slots, nested shadow roots, and shadow root option variants
  * (delegatesFocus, closed mode).
  */
-import { describe, test, before } from 'node:test';
+import { describe, test } from 'node:test';
 import assert from 'node:assert/strict';
 import { html, css } from 'lit';
 import { LitElement } from 'lit';
 import { render, collectResult } from '../../../src/index.js';
+
+// Fixtures — static imports so the file works on all runtimes including Deno,
+// which does not yet implement node:test's before() hook.
+import '../../fixtures/simple-greeting.js';
+import '../../fixtures/card-component.js';
+
+// ── Inline fixtures for Phase 4-specific scenarios ────────────────────────────
+// Defined at module scope (not inside before()) for cross-runtime compatibility.
+
+class FocusDelegator extends LitElement {
+  static shadowRootOptions = { mode: 'open', delegatesFocus: true };
+  render() {
+    return html`<button>Focus me</button>`;
+  }
+}
+if (!customElements.get('focus-delegator')) {
+  customElements.define('focus-delegator', FocusDelegator);
+}
+
+class EmptyRenderer extends LitElement {
+  render() {
+    return html``;
+  }
+}
+if (!customElements.get('empty-renderer')) {
+  customElements.define('empty-renderer', EmptyRenderer);
+}
+
+class SlottedCard extends LitElement {
+  static styles = css`:host { display: block; }`;
+  render() {
+    return html`
+      <header><slot name="header">Default header</slot></header>
+      <main><slot></slot></main>
+      <footer><slot name="footer">Default footer</slot></footer>
+    `;
+  }
+}
+if (!customElements.get('slotted-card')) {
+  customElements.define('slotted-card', SlottedCard);
+}
+
+class InnerComponent extends LitElement {
+  static properties = { value: { type: String } };
+  constructor() { super(); this.value = 'inner'; }
+  render() {
+    return html`<span class="inner-value">${this.value}</span>`;
+  }
+}
+if (!customElements.get('inner-component')) {
+  customElements.define('inner-component', InnerComponent);
+}
+
+class OuterComponent extends LitElement {
+  render() {
+    return html`
+      <div class="outer-wrapper">
+        <inner-component value="nested"></inner-component>
+      </div>
+    `;
+  }
+}
+if (!customElements.get('outer-component')) {
+  customElements.define('outer-component', OuterComponent);
+}
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -20,76 +85,6 @@ const stripMarkers = (str) =>
     .replace(/<!--lit-part[^>]*-->/g, '')
     .replace(/<!--\/lit-part-->/g, '')
     .replace(/<!--lit-node \d+-->/g, '');
-
-// ── Fixtures ─────────────────────────────────────────────────────────────────
-
-before(async () => {
-  await import('../../fixtures/simple-greeting.js');
-  await import('../../fixtures/card-component.js');
-
-  // ── Inline fixtures for Phase 4-specific scenarios ─────────────────────────
-
-  // Component with delegatesFocus shadow root option
-  class FocusDelegator extends LitElement {
-    static shadowRootOptions = { mode: 'open', delegatesFocus: true };
-    render() {
-      return html`<button>Focus me</button>`;
-    }
-  }
-  if (!customElements.get('focus-delegator')) {
-    customElements.define('focus-delegator', FocusDelegator);
-  }
-
-  // Component that renders nothing (render returns undefined/nothing)
-  class EmptyRenderer extends LitElement {
-    render() {
-      return html``;
-    }
-  }
-  if (!customElements.get('empty-renderer')) {
-    customElements.define('empty-renderer', EmptyRenderer);
-  }
-
-  // Component with named and unnamed slots
-  class SlottedCard extends LitElement {
-    static styles = css`:host { display: block; }`;
-    render() {
-      return html`
-        <header><slot name="header">Default header</slot></header>
-        <main><slot></slot></main>
-        <footer><slot name="footer">Default footer</slot></footer>
-      `;
-    }
-  }
-  if (!customElements.get('slotted-card')) {
-    customElements.define('slotted-card', SlottedCard);
-  }
-
-  // Nested component — inner component inside outer's shadow DOM
-  class InnerComponent extends LitElement {
-    static properties = { value: { type: String } };
-    constructor() { super(); this.value = 'inner'; }
-    render() {
-      return html`<span class="inner-value">${this.value}</span>`;
-    }
-  }
-  if (!customElements.get('inner-component')) {
-    customElements.define('inner-component', InnerComponent);
-  }
-
-  class OuterComponent extends LitElement {
-    render() {
-      return html`
-        <div class="outer-wrapper">
-          <inner-component value="nested"></inner-component>
-        </div>
-      `;
-    }
-  }
-  if (!customElements.get('outer-component')) {
-    customElements.define('outer-component', OuterComponent);
-  }
-});
 
 // ── Declarative shadow DOM format ─────────────────────────────────────────────
 
