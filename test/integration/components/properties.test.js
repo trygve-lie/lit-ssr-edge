@@ -5,10 +5,16 @@
  * custom attribute names, default values, property bindings (.prop=),
  * and reflect:true attributes.
  */
-import { describe, test, before } from 'node:test';
+import { describe, test } from 'node:test';
 import assert from 'node:assert/strict';
 import { html } from 'lit';
 import { render, collectResult } from '../../../src/index.js';
+
+// Fixtures — static imports so the file works on all runtimes including Deno,
+// which does not yet implement node:test's before() hook.
+import '../../fixtures/simple-greeting.js';
+import '../../fixtures/property-types.js';
+import '../../fixtures/reflected-element.js';
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -19,14 +25,6 @@ const stripMarkers = (html) =>
     .replace(/<!--lit-part[^>]*-->/g, '')
     .replace(/<!--\/lit-part-->/g, '')
     .replace(/<!--lit-node \d+-->/g, '');
-
-// ── Fixtures ─────────────────────────────────────────────────────────────────
-
-before(async () => {
-  await import('../../fixtures/simple-greeting.js');
-  await import('../../fixtures/property-types.js');
-  await import('../../fixtures/reflected-element.js');
-});
 
 // ── Attribute → property type conversion ─────────────────────────────────────
 
