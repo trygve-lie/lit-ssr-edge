@@ -1,0 +1,24 @@
+{
+  "name": "lit-ssr-edge-hono-service-worker-example",
+  "version": "1.0.0",
+  "description": "Example: Hono + lit-ssr-edge — server first, then service worker takes over",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "node esbuild.sw.js && node esbuild.client.js",
+    "start": "npm run build && node server.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.13.0",
+    "@lit-labs/ssr-client": "1.1.8",
+    "hono": "^4.0.0",
+    "lit": "3.3.2",
+    "lit-ssr-edge": "file:../.."
+  },
+  "devDependencies": {
+    "esbuild": "0.27.3"
+  }
+}
