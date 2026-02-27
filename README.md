@@ -115,6 +115,12 @@ npm run test:baseline
 # Full lit-ssr-edge suite only (305 tests)
 npm run test:lit-ssr-edge
 
+# Run the full suite on Bun
+npm run test:bun
+
+# Run the full suite on Deno
+npm run test:deno
+
 # Performance benchmarks
 npm run perf:lit-ssr-edge
 npm run perf:compare benchmark-lit-ssr-*.json benchmark-lit-ssr-edge-*.json
@@ -158,6 +164,7 @@ npm run perf:compare benchmark-lit-ssr-*.json benchmark-lit-ssr-edge-*.json
 | Hono (all WinterTC runtimes, single app) | Hono | [`examples/hono/`](examples/hono/) |
 | Hono + Service Worker (server first, SW takes over) | Hono + SW | [`examples/hono-service-worker/`](examples/hono-service-worker/) |
 | Node.js HTTP server (streaming + buffered) | Node.js 18+ | [`examples/node-js/`](examples/node-js/) |
+| Bun HTTP server (Bun.serve, streaming + buffered) | Bun | [`examples/bun/`](examples/bun/) |
 
 ## Migrating from @lit-labs/ssr
 

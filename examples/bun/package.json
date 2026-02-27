@@ -1,0 +1,17 @@
+{
+  "name": "lit-ssr-edge-bun-example",
+  "version": "1.0.0",
+  "description": "Example: lit-ssr-edge SSR on Bun",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "bun run server.js"
+  },
+  "engines": {
+    "bun": ">=1.0.0"
+  },
+  "dependencies": {
+    "lit": "3.3.2",
+    "lit-ssr-edge": "file:../.."
+  }
+}
