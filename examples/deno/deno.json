@@ -1,0 +1,11 @@
+{
+  "tasks": {
+    "start": "deno run --allow-env --allow-net server.js"
+  },
+  "imports": {
+    "lit": "npm:lit@*",
+    "lit-ssr-edge": "npm:lit-ssr-edge@*",
+    "lit-ssr-edge/install-global-dom-shim.js": "npm:lit-ssr-edge/install-global-dom-shim.js",
+    "lit-ssr-edge/server-template.js": "npm:lit-ssr-edge/server-template.js"
+  }
+}

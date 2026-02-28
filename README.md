@@ -165,6 +165,7 @@ npm run perf:compare benchmark-lit-ssr-*.json benchmark-lit-ssr-edge-*.json
 | Hono + Service Worker (server first, SW takes over) | Hono + SW | [`examples/hono-service-worker/`](examples/hono-service-worker/) |
 | Node.js HTTP server (streaming + buffered) | Node.js 18+ | [`examples/node-js/`](examples/node-js/) |
 | Bun HTTP server (Bun.serve, streaming + buffered) | Bun | [`examples/bun/`](examples/bun/) |
+| Deno HTTP server (Deno.serve, streaming + buffered) | Deno | [`examples/deno/`](examples/deno/) |
 
 ## Migrating from @lit-labs/ssr
 
